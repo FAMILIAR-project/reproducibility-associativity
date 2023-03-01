@@ -7,13 +7,13 @@ python testassoc.py --seed 42 --number 1000 | tr -d '\n'
 echo ";"
 
 javac -d . *.java
-echo -n "Java; "
+echo -n "Java;"
 echo -n "java.util.Random.nextFloat();"
 echo -n "-;"
 java assoc.TestAssoc basic | tr -d '\n'
 echo ";"
 
-echo -n "Java; "
+echo -n "Java;"
 echo -n "Math.random();"
 echo -n "-;"
 java assoc.TestAssoc math | tr -d '\n'

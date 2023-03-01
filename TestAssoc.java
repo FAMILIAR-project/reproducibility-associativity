@@ -2,22 +2,24 @@ package assoc;
 import  java.util.Random;
 
 public class TestAssoc {
-	private BasicRandom rand;
+	private IRandom rand;
 
 
-	void setRand(BasicRandom r) {
+	void setRand(IRandom r) {
 		this.rand = r;
 	}
+
+	interface IRandom {
+		public double random();
+	}
 	
-	class BasicRandom extends java.util.Random {
+	class BasicRandom implements IRandom {
 		public double random() {
-			//System.out.println(Math.random());
-			return nextFloat(); 
+			return new java.util.Random().nextFloat();
 		}
 	}
-	class MathRandom extends BasicRandom {
+	class MathRandom implements IRandom {
 		public double random() {
-			//System.out.println(Math.random());
 			return Math.random(); 
 		}
 	}

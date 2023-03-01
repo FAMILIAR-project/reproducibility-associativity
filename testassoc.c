@@ -41,7 +41,7 @@ char *argv[];
 #ifdef WIN
   srand(123);
 #else
-  drand48(123);
+  srand48(123);
 #endif
   printf("%f%%\n",proportion(100000));
 }

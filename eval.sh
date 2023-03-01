@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Language; Library; System; Score;"
+echo "Language;Library;System;Score;"
 
 echo -n "Python;std;-;"
 python testassoc.py --seed 42 --number 1000 | tr -d '\n'
@@ -20,14 +20,14 @@ java assoc.TestAssoc math | tr -d '\n'
 echo ";"
 
 echo -n "C;"
-echo -n "(srand48+rand48);Linux;"
-gcc -o testassoc testassoc.c  
+echo -n "custom;Linux;"
+gcc -o testassoc testassoc.c -DCUSTOM=1
 ./testassoc | tr -d '\n'
 echo ";"
 
 echo -n "C;"
-echo -n "custom;Linux;"
-gcc -o testassoc testassoc.c -DCUSTOM=1
+echo -n "(srand48+rand48);Linux;"
+gcc -o testassoc testassoc.c  
 ./testassoc | tr -d '\n'
 echo ";"
 

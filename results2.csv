@@ -1,0 +1,8 @@
+Language; Library; System; Score;
+Python;std;-;82.0%;
+Java; java.util.Random.nextFloat();-;100.0%;
+Java; Math.random();-;82.26%;
+C;(srand48+rand48);Linux;100.000000%;
+C;custom;Linux;74.596001%;
+C;custom;Windows;74.596001%;
+C;(srand+rand);Windows;100.000000%;

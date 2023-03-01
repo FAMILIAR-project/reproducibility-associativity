@@ -34,14 +34,25 @@ float proportion(int number)
 
 
 /* Here is the entry point of the program */
+#ifdef OLD_MAIN_C
 void main(argc, argv)
 int argc;
 char *argv[];
 {
+#else
+int main(int argc, char **argv) {
+#endif 
 #ifdef WIN
   srand(123);
 #else
   srand48(123);
 #endif
-  printf("%f%%\n",proportion(100000));
+int count = 100000; // default value
+if (argc > 1) {
+count = atoi(argv[1]); // convert the user input to an integer
+}
+printf("%f%%\n", proportion(count));
+#ifndef OLD_MAIN_C
+  return 0;
+#endif
 }

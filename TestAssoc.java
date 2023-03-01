@@ -41,9 +41,19 @@ public class TestAssoc {
 
 	public static void main(String[] args) {
 		TestAssoc t = new TestAssoc();
-		t.setRand(t.new BasicRandom());
-		System.out.println(String.valueOf(t.proportion(10000)+"%"));
-		t.setRand(t.new MathRandom());
+		if (args.length > 0) {
+			String arg = args[0];
+			if (arg.equals("basic")) {
+				t.setRand(t.new BasicRandom());
+			} else if (arg.equals("math")) {
+				t.setRand(t.new MathRandom());
+			} else {
+				throw new IllegalArgumentException("Invalid parameter: " + arg);
+			}
+		} else {
+			t.setRand(t.new MathRandom());
+		}
 		System.out.println(String.valueOf(t.proportion(10000)+"%"));
 	}
+	
 }

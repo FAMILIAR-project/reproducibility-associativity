@@ -18,4 +18,4 @@
 (defun proportion (iter)
   (/ (* 100 (count t (loop for i from 1 to iter collect (associativity-test)))) iter))
 
-(format t "~A\%~%" (proportion 1000))
+(format t "~A\%~%" (proportion 100000))

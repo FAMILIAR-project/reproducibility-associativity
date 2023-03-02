@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# TODO: repeat N times the experiments and report std/mean/min/max in the Score
+
+# TODO number as a column 
 echo "Language;Library;System;Compiler;VariabilityMisc;Score;"
 
 echo -n "Python;std;-;-;-;" # TODO python version
@@ -10,13 +13,13 @@ javac -d . *.java
 echo -n "Java;"
 echo -n "java.util.Random.nextFloat();"
 echo -n "-;-;-;" # TODO JDK version
-java assoc.TestAssoc basic | tr -d '\n' # TODO add number also in java
+java assoc.TestAssoc basic 1000 | tr -d '\n' # play with number (and seed TODO)
 echo ";"
 
 echo -n "Java;"
 echo -n "Math.random();"
 echo -n "-;-;-;" # TODO JDK version
-java assoc.TestAssoc math | tr -d '\n'
+java assoc.TestAssoc math 1000 | tr -d '\n' # play with number
 echo ";"
 
 

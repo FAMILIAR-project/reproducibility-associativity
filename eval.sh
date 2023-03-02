@@ -4,7 +4,7 @@
 
 # TODO number as a column 
 
-CSV_SEPARATOR=';'
+CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}Score"
 
 echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO python version
@@ -67,7 +67,6 @@ done
 echo -n "Rust${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO Rust-specific
-cargo build --release --quiet 
-./target/release/testassoc | tr -d '\n' # play with number
+cargo run --release -q | tr -d '\n' # play with number
 echo ""
 

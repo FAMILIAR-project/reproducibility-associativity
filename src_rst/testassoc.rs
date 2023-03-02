@@ -20,5 +20,5 @@ fn proportion(number: i32, seed_val: u64) -> i32 {
 }
 
 fn main() {
-    println!("{}%", proportion(1000, 1234));
+    println!("{}%", proportion(10000, 1234));
 }

@@ -3,8 +3,13 @@ name = "testassoc"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+mult_inverse = []
+associativity = []
+
 [dependencies]
 rand = "0.8.4"
+structopt = "0.2.15"
 
 [[bin]]
 name = "testassoc"

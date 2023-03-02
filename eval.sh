@@ -64,3 +64,10 @@ for compiler in "${COMPILERS[@]}"; do
 done
 
 
+echo -n "Rust${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO Rust-specific
+cargo build --release --quiet 
+./target/release/testassoc | tr -d '\n' # play with number
+echo ""
+

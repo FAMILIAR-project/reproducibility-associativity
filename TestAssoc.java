@@ -27,7 +27,6 @@ public class TestAssoc {
 	
 	boolean associativity_test(){
 	  double x = rand.random(); double y = rand.random(); double z = rand.random();
-	  //  printf("%f   %f   %f   %d\n",x,y,z,x+(y+z) == (x+y)+z);
 	  return x+(y+z) == (x+y)+z;
 	}
 
@@ -41,6 +40,12 @@ public class TestAssoc {
 
 	public static void main(String[] args) {
 		TestAssoc t = new TestAssoc();
+		int numTrials = 10000; // default number of trials
+
+		// java assoc.TestAssoc basic|math number eg java assoc.TestAssoc math 1000
+
+		// TODO seed?
+
 		if (args.length > 0) {
 			String arg = args[0];
 			if (arg.equals("basic")) {
@@ -50,10 +55,11 @@ public class TestAssoc {
 			} else {
 				throw new IllegalArgumentException("Invalid parameter: " + arg);
 			}
-		} else {
-			t.setRand(t.new MathRandom());
-		}
-		System.out.println(String.valueOf(t.proportion(10000)+"%"));
+
+			if (args.length > 1)
+				numTrials = Integer.parseInt(args[1]);	// != 0	
+		} 
+		System.out.println(String.valueOf(t.proportion(numTrials)+"%"));
 	}
 	
 }

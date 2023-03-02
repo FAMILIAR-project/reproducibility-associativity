@@ -30,7 +30,12 @@ fn check_ratio(config: &Config, x: f64, y: f64, z: f64) -> bool {
         #[cfg(feature = "mult_inverse")]
         {
         ((x * z) / (y * z) - x / y).abs() < error_margin
-        } 
+        }
+        #[cfg(feature = "mult_inverse_pi")]
+        {
+        ((x * z * std::f64::consts::PI) / (y * z * std::f64::consts::PI) - x / y).abs() < error_margin
+        }        
+
     } else {
         #[cfg(feature = "associativity")]
         {
@@ -40,6 +45,11 @@ fn check_ratio(config: &Config, x: f64, y: f64, z: f64) -> bool {
         #[cfg(feature = "mult_inverse")]
         {
         (x * z) / (y * z) == x / y
+        }
+
+        #[cfg(feature = "mult_inverse_pi")]
+        {
+        (x * z * std::f64::consts::PI) / (y * z * std::f64::consts::PI) == (x / y)
         }
     }
 }

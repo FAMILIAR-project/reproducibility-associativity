@@ -78,6 +78,12 @@ echo ""
 
 echo -n "Rust${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi --error_margin 0.000000000000001${CSV_SEPARATOR}" # TODO Rust-specific
+cargo run --features mult_inverse_pi -q -- --error_margin 0.000000000000001 | tr -d '\n' # play with number
+echo ""
+
+echo -n "Rust${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}associativity (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
 cargo run --features associativity -q -- | tr -d '\n' # play with number
 echo ""
@@ -86,5 +92,11 @@ echo -n "Rust${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
 cargo run --features mult_inverse -q -- | tr -d '\n' # play with number
+echo ""
+
+echo -n "Rust${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
+cargo run --features mult_inverse_pi -q -- | tr -d '\n' # play with number
 echo ""
 

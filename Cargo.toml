@@ -5,6 +5,7 @@ edition = "2021"
 
 [features]
 mult_inverse = []
+mult_inverse_pi = []
 associativity = []
 
 [dependencies]

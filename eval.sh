@@ -100,3 +100,10 @@ echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi (no error margin ie p
 cargo run --features mult_inverse_pi -q -- | tr -d '\n' # play with number
 echo ""
 
+echo -n "LISP${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specific
+sbcl --noinform --quit --load test_assoc.lisp | tr -d '\n' # play with number
+echo ""
+
+

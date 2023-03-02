@@ -14,8 +14,11 @@ public class TestAssoc {
 	}
 	
 	class BasicRandom implements IRandom {
+
+		Random r = new Random();
+
 		public double random() {
-			return new java.util.Random().nextFloat();
+			return r.nextFloat();
 		}
 	}
 	class MathRandom implements IRandom {

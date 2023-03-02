@@ -24,6 +24,12 @@ echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
 java assoc.TestAssoc math 1000 | tr -d '\n' # play with number
 echo ""
 
+echo -n "Java${CSV_SEPARATOR}"
+echo -n "java.util.Random.nextDouble()${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
+java assoc.TestAssoc double 1000 | tr -d '\n' # play with number
+echo ""
+
 
 COMPILERS=("gcc" "clang") # TODO: specific flag of clang/gcc like -ffast-math -funsafe-math-optimizations -frounding-math -fsignaling-nans; gcc/clang version
 OPTIONS=("-DCUSTOM=1" "" "-DWIN=1 -DCUSTOM=1" "-DWIN=1")

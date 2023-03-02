@@ -21,6 +21,16 @@ public class TestAssoc {
 			return r.nextFloat();
 		}
 	}
+
+	class DoubleRandom implements IRandom {
+
+		Random r = new Random();
+
+		public double random() {
+			return r.nextDouble();
+		}
+	}
+
 	class MathRandom implements IRandom {
 		public double random() {
 			return Math.random(); 
@@ -51,11 +61,15 @@ public class TestAssoc {
 
 		if (args.length > 0) {
 			String arg = args[0];
-			if (arg.equals("basic")) {
-				t.setRand(t.new BasicRandom());
+			if (arg.equals("double")) {
+				t.setRand(t.new DoubleRandom());
 			} else if (arg.equals("math")) {
 				t.setRand(t.new MathRandom());
-			} else {
+			} else if (arg.equals("basic")) {
+				t.setRand(t.new BasicRandom());
+			}
+			
+			else {
 				throw new IllegalArgumentException("Invalid parameter: " + arg);
 			}
 

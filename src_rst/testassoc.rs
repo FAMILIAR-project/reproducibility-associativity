@@ -1,5 +1,4 @@
 use rand::prelude::*;
-use std::num::ParseFloatError;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -22,15 +21,12 @@ impl Default for Config {
     }
 }
 
-
-#[cfg(any(feature = "mult_inverse", feature = "associativity"))]
 fn check_ratio(config: &Config, x: f64, y: f64, z: f64) -> bool {
     if let Some(error_margin) = config.error_margin {        
         #[cfg(feature = "associativity")]
         {
         ((x + y) + z - x - (y + z)).abs() < error_margin
         }
-
         #[cfg(feature = "mult_inverse")]
         {
         ((x * z) / (y * z) - x / y).abs() < error_margin
@@ -54,24 +50,24 @@ fn associativity_test(config: &Config) -> bool {
     // let x = rng.gen::<f64>();
     // let y = rng.gen::<f64>();
     // let z = rng.gen::<f64>();
-    let x = rng.gen_range(0.000000000000001..100.0); // TODO: variation point for range min, max value
-    let y = rng.gen_range(0.000000000000001..100.0);
-    let z = rng.gen_range(0.000000000000001..100.0);
-    check_ratio(&config, x, y, z)
+    let x = rng.gen_range(0.000_000_000_000_001..100.0); // TODO: variation point for range min, max value
+    let y = rng.gen_range(0.000_000_000_000_001..100.0);
+    let z = rng.gen_range(0.000_000_000_000_001..100.0);
+    check_ratio(config, x, y, z)
 }
 
 fn proportion(config: &Config, number: i32, seed_val: u64) -> i32 {
     StdRng::seed_from_u64(seed_val);
     let mut ok = 0;
     for _ in 0..number {
-        if associativity_test(&config) {
+        if associativity_test(config) {
             ok += 1;
         }
     }
     ok * 100 / number
 }
 
-fn main() -> Result<(), ParseFloatError> {
+fn main() {
     let opt = Opt::from_args();
 
     let config = Config {
@@ -80,5 +76,5 @@ fn main() -> Result<(), ParseFloatError> {
 
     println!("{}%", proportion(&config, 10_000, 1234)); // TODO: variation point for number of tests and seed value
 
-    Ok(())
+   
 }

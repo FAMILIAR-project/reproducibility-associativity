@@ -108,9 +108,22 @@ echo ""
 
 echo -n "JavaScript${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JS specific
-npm start --prefix js/ --silent -- --seed 42 | tr -d '\n' # play with number
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}associativity${CSV_SEPARATOR}" # TODO JS specific
+npm start --prefix js/ --silent -- --equality-check "associativity" --seed 42 | tr -d '\n' # play with number
 echo ""
+
+echo -n "JavaScript${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse${CSV_SEPARATOR}" # TODO JS specific
+npm start --prefix js/ --silent -- --equality-check "mult_inverse" --seed 42 | tr -d '\n' # play with number
+echo ""
+
+echo -n "JavaScript${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi${CSV_SEPARATOR}" # TODO JS specific
+npm start --prefix js/ --silent -- --equality-check "mult_inverse_pi" --seed 42 | tr -d '\n' # play with number
+echo ""
+
 
 
 

@@ -108,7 +108,7 @@ echo ""
 
 SEED="42"
 
-function run_test() {
+function run_JStest() {
   local check="$1"
   local with_gseed="$2"
 
@@ -131,15 +131,14 @@ function run_test() {
   echo ""
 }
 
-# First run
-run_test "associativity" true
-run_test "mult_inverse" true
-run_test "mult_inverse_pi" true
+run_JStest "associativity" true
+run_JStest "mult_inverse" true
+run_JStest "mult_inverse_pi" true
+run_JStest "associativity" false
+run_JStest "mult_inverse" false
+run_JStest "mult_inverse_pi" false
 
-# Second run
-run_test "associativity" false
-run_test "mult_inverse" false
-run_test "mult_inverse_pi" false
+# TODO: playing with npm version and randomseed version!
 
 
 

@@ -12,6 +12,7 @@ Here are the current implementations:
  * configurable Rust implementation with compile-time options (associativity, multiplication inverse with and without Pi) and run-time options with optional error margin over equality 
  * LISP implementation 
  * configurable JavaScript implementation with `seed` number (and actually the surprising `global seed`) and `equality-check` (associativity, multiplication inverse with and without Pi)
+ * configurable Bash implementation with `equality-check` using `-e` (associativity, multiplication inverse with and without Pi)
 
  All implementations (but LISP until now) support parameterization of the number of random generations. 
  Executions are repeated 10 times by default. 

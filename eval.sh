@@ -97,6 +97,13 @@ function testCvariants() {
     for compiler in "${COMPILERS[@]}"; do
         for i in {0..3}; do
             for flag in "${FLAGS[@]}"; do
+
+                # if compiler is gcc and options contains -DWIN=1, compiler is i686-w64-mingw32-gcc
+                if [[ "$compiler" == "gcc" && "${OPTIONS[$i]}" == *"-DWIN=1"* ]]; then
+                    compiler="i686-w64-mingw32-gcc"
+                fi
+
+
                 echo -n "C${CSV_SEPARATOR}"
                 case "$i" in
                     0)

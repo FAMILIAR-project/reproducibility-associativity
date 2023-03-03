@@ -8,7 +8,7 @@ Well, let's see...
 Here are the current implementations:
  * configurable Python implementation with `seed` and `number` 
  * configurable Java implementation with `basic` (float), `double` or `math` 
- * configurable C implementation with `custom` (optional) + `windows` or `linux` having an effect on random primitives 
+ * configurable C implementation with `custom` (optional) + `windows` or `linux` having an effect on random primitives. We compile with `gcc`, `i686-w64-mingw32-gcc` (when needs be/possible), and `clang` 
  * configurable Rust implementation with compile-time options (associativity, multiplication inverse with and without Pi) and run-time options with optional error margin over equality 
  * LISP implementation 
  * configurable JavaScript implementation with `seed` number (and actually the surprising `global seed`) and `equality-check` (associativity, multiplication inverse with and without Pi)
@@ -36,3 +36,13 @@ Clippy lints https://rust-lang.github.io/rust-clippy/master/index.html#float_cmp
 https://gist.github.com/garandria/0e965d7a4efff89ed245d71f0c3785a3
 https://stackoverflow.com/questions/11006798/how-can-i-obtain-a-negative-random-integer-in-common-lisp 
 
+### C
+
+To cross-compile for Windows from Linux with `i686-w64-mingw32-gcc`, specific packages are needed (eg on Fedora `mingw64-gcc.x86_64`). 
+The combinatorial is roughly (but in fact there are much more variation points and variants):
+```
+gcc -o testassoc-l testassoc.c
+gcc -o testassoc-lc testassoc.c -DCUSTOM
+i686-w64-mingw32-gcc -o testassoc-w testassoc.c -DWIN
+i686-w64-mingw32-gcc -o testassoc-wc testassoc.c -DWIN -DCUSTOM
+```

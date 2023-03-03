@@ -13,7 +13,10 @@ Here are the current implementations:
  * LISP implementation 
  * configurable JavaScript implementation with `seed` number (and actually the surprising `global seed`) and `equality-check` (associativity, multiplication inverse with and without Pi)
 
-To execute all variants and gathered results into a CSV: `sh eval.sh > results2.csv`
+ All implementations (but LISP until now) support parameterization of the number of random generations. 
+ Executions are repeated 10 times by default. 
+
+To execute all variants and gathered results into a CSV: `sh eval.sh > results.csv; python postdata.py; # do something with data like rich results.csv`
 
 ## Resources
 

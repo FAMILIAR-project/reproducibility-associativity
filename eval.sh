@@ -7,8 +7,8 @@
 CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}NumberGenerations${CSV_SEPARATOR}Score"
 
-GNUMBER_GENERATIONS=1000 # number of generations (global, can be used by any implementation)
-
+GNUMBER_GENERATIONS=100 # number of generations (global, can be used by any implementation)
+REPEAT=10 # number of times to repeat the experiment per variant
 
 # run a command N times and return the min, max, mean, and std of the results
 function analyze_results {
@@ -61,7 +61,7 @@ function testPYvariants() {
   echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO python version
   local cmd_args=(python testassoc.py --seed 42 --number ${ngen} --equality-check "$test_name")  
   local cmd_str=$(printf "%s " "${cmd_args[@]}")
-  local result_str=$(analyze_results 10 "${cmd_str}")
+  local result_str=$(analyze_results ${REPEAT} "${cmd_str}")
   echo "$result_str"
 }
 
@@ -76,7 +76,7 @@ function testJAVAvariants() {
     echo -n "Java${CSV_SEPARATOR}"
     echo -n "${test_name}${CSV_SEPARATOR}"
     echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${GNUMBER_GENERATIONS}${CSV_SEPARATOR}" # TODO JDK version
-    local result_str=$(analyze_results 10 "${test_cmd}")
+    local result_str=$(analyze_results ${REPEAT} "${test_cmd}")
     echo "$result_str"
 }
 
@@ -121,7 +121,7 @@ function testCvariants() {
                 # TODO: play with number of generations (proportions), default value used right now
                 local cmd_args=(./testassoc $ngen) 
                 local cmd_str=$(printf "%s " "${cmd_args[@]}")
-                local result_str=$(analyze_results 10 "${cmd_str}")           
+                local result_str=$(analyze_results ${REPEAT} "${cmd_str}")           
                 echo "$result_str"
             done
         done
@@ -151,7 +151,7 @@ run_RSvariant() {
     fi
 
     local cmd_str=$(printf "%s " "${cmd_args[@]}")
-    local result_str=$(analyze_results 10 "${cmd_str}")
+    local result_str=$(analyze_results ${REPEAT} "${cmd_str}")
     echo "$result_str"
 }
 
@@ -171,7 +171,7 @@ function testLISPvariants() {
     echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO LISP specific
     local cmd_args=(sbcl --noinform --quit --load test_assoc.lisp) # play with number
     local cmd_str=$(printf "%s " "${cmd_args[@]}")
-    local result_str=$(analyze_results 10 "${cmd_str}")           
+    local result_str=$(analyze_results ${REPEAT} "${cmd_str}")           
     echo "$result_str"
 }
 
@@ -203,7 +203,7 @@ function run_JStest() {
   
   npm_args_str=$(printf "%s " "${npm_args[@]}")
   # eval "npm start ${npm_args_str}"
-  result_str=$(analyze_results 10 "npm start ${npm_args_str}")
+  result_str=$(analyze_results ${REPEAT} "npm start ${npm_args_str}")
   echo "$result_str"
 }
 

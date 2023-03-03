@@ -54,16 +54,20 @@ function analyze_results {
 }
 
 function testPYvariants() {
-  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO python version
-  local cmd_args=(python testassoc.py --seed 42 --number 1000) # play with number 
+  local test_name="$1"
+  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name}${CSV_SEPARATOR}" # TODO python version
+  local cmd_args=(python testassoc.py --seed 42 --number 1000 --equality-check "$test_name") # play with number 
   local cmd_str=$(printf "%s " "${cmd_args[@]}")
   local result_str=$(analyze_results 10 "${cmd_str}")
   echo "$result_str"
   echo ""
 }
 
-# Call the function
-testPYvariants
+
+testPYvariants "associativity"
+testPYvariants "mult-inverse"
+testPYvariants "mult-inverse-pi"
+
 
 function testJAVAvariants() {
     local test_name="$1"

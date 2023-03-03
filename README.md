@@ -11,7 +11,7 @@ Here are the current implementations:
  * configurable C implementation with `custom` (optional) + `windows` or `linux` having an effect on random primitives 
  * configurable Rust implementation with compile-time options (associativity, multiplication inverse with and without Pi) and run-time options with optional error margin over equality 
  * LISP implementation 
- * configurable JavaScript implementation with `seed` and `equality-check` (associativity, multiplication inverse with and without Pi)
+ * configurable JavaScript implementation with `seed` number (and actually the surprising `global seed`) and `equality-check` (associativity, multiplication inverse with and without Pi)
 
 To execute all variants and gathered results into a CSV: `sh eval.sh > results2.csv`
 
@@ -27,4 +27,9 @@ https://en.wikipedia.org/wiki/Linear_congruential_generator (pseudo-random gener
 
 https://users.rust-lang.org/t/why-are-float-equality-comparsions-allowed/76603 about float equals stuffs
 Clippy lints https://rust-lang.github.io/rust-clippy/master/index.html#float_cmp 
+
+### LISP
+
+https://gist.github.com/garandria/0e965d7a4efff89ed245d71f0c3785a3
+https://stackoverflow.com/questions/11006798/how-can-i-obtain-a-negative-random-integer-in-common-lisp 
 

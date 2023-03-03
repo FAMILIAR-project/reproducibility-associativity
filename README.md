@@ -38,7 +38,7 @@ https://stackoverflow.com/questions/11006798/how-can-i-obtain-a-negative-random-
 
 ### C
 
-To cross-compile for Windows from Linux with `i686-w64-mingw32-gcc`, specific packages are needed (eg on Fedora `mingw64-gcc.x86_64`). 
+To cross-compile for Windows from Linux with `i686-w64-mingw32-gcc`, specific packages are needed (e.g. on Fedora `mingw64-gcc.x86_64`). 
 The combinatorial is roughly (but in fact there are much more variation points and variants):
 ```
 gcc -o testassoc-l testassoc.c

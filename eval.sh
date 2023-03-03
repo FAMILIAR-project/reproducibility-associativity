@@ -7,7 +7,7 @@
 CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}NumberGenerations${CSV_SEPARATOR}Score"
 
-GNUMBER_GENERATIONS=100 # number of generations (global, can be used by any implementation)
+GNUMBER_GENERATIONS=10000 # number of generations (global, can be used by any implementation)
 REPEAT=10 # number of times to repeat the experiment per variant
 
 # run a command N times and return the min, max, mean, and std of the results

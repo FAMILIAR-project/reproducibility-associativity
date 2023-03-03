@@ -11,6 +11,7 @@ Here are the current implementations:
  * configurable C implementation with `custom` (optional) + `windows` or `linux` having an effect on random primitives 
  * configurable Rust implementation with compile-time options (associativity, multiplication inverse with and without Pi) and run-time options with optional error margin over equality 
  * LISP implementation 
+ * configurable JavaScript implementation with `seed` and `equality-check` (associativity, multiplication inverse with and without Pi)
 
 To execute all variants and gathered results into a CSV: `sh eval.sh > results2.csv`
 

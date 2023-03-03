@@ -106,4 +106,11 @@ echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specif
 sbcl --noinform --quit --load test_assoc.lisp | tr -d '\n' # play with number
 echo ""
 
+echo -n "JavaScript${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}"
+echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JS specific
+npm start --prefix js/ --silent -- --seed 42 | tr -d '\n' # play with number
+echo ""
+
+
 

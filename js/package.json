@@ -1,0 +1,15 @@
+{
+  "name": "testassoc",
+  "version": "1.0.0",
+  "description": "equality numbers",
+  "main": "test_assoc.js",
+  "scripts": {
+    "start": "node test_assoc.js"
+  },
+  "author": "Mathieu Acher",
+  "license": "BSD 3-Clause License",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "seedrandom": "^3.0.5"
+  }
+}

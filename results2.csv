@@ -1,8 +1,8 @@
 Language,Library,System,Compiler,VariabilityMisc,Score
 Python,std,-,-,-,82.0%
 Java,java.util.Random.nextFloat(),-,-,-,100.0%
-Java,Math.random(),-,-,-,82.8%
-Java,java.util.Random.nextDouble(),-,-,-,82.9%
+Java,Math.random(),-,-,-,82.0%
+Java,java.util.Random.nextDouble(),-,-,-,80.9%
 C,custom,Linux,gcc,-DOLD_MAIN_C=1,74.596001%
 C,custom,Linux,gcc,,74.596001%
 C,(srand48+rand48),Linux,gcc,-DOLD_MAIN_C=1,100.000000%
@@ -19,10 +19,11 @@ C,custom,Windows,clang,-DOLD_MAIN_C=1,74.596001%
 C,custom,Windows,clang,,74.596001%
 C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,100.000000%
 C,(srand+rand),Windows,clang,,100.000000%
-Rust,-,-,-,associativity --error_margin 0.000000000000001,54%
+Rust,-,-,-,associativity --error_margin 0.000000000000001,55%
 Rust,-,-,-,mult_inverse --error_margin 0.000000000000001,97%
-Rust,-,-,-,mult_inverse_pi --error_margin 0.000000000000001,96%
+Rust,-,-,-,mult_inverse_pi --error_margin 0.000000000000001,97%
 Rust,-,-,-,associativity (no error margin ie pure equality),75%
 Rust,-,-,-,mult_inverse (no error margin ie pure equality),65%
-Rust,-,-,-,mult_inverse_pi (no error margin ie pure equality),54%
+Rust,-,-,-,mult_inverse_pi (no error margin ie pure equality),53%
 LISP,-,-,-,-,100%
+JavaScript,-,-,-,-,100%

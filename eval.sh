@@ -48,68 +48,84 @@ function analyze_results {
 
   # Build a string containing the results
   result_str="Min: $min% Max: $max% Mean: $mean% Std: $std"
-  # result_str="Min: $min% Max: $max% Mean: $mean%"
 
   # Return the result string
   echo "$result_str"
 }
 
-echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO python version
-python testassoc.py --seed 42 --number 1000 | tr -d '\n' # play with number 
-echo "" 
+function testPYvariants() {
+  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO python version
+  local cmd_args=(python testassoc.py --seed 42 --number 1000) # play with number 
+  local cmd_str=$(printf "%s " "${cmd_args[@]}")
+  local result_str=$(analyze_results 10 "${cmd_str}")
+  echo "$result_str"
+  echo ""
+}
 
-javac -d . *.java
-echo -n "Java${CSV_SEPARATOR}"
-echo -n "java.util.Random.nextFloat()${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
-java assoc.TestAssoc basic 1000 | tr -d '\n' # play with number (and seed TODO)
-echo ""
+# Call the function
+testPYvariants
 
-echo -n "Java${CSV_SEPARATOR}"
-echo -n "Math.random()${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
-java assoc.TestAssoc math 1000 | tr -d '\n' # play with number
-echo ""
-
-echo -n "Java${CSV_SEPARATOR}"
-echo -n "java.util.Random.nextDouble()${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
-java assoc.TestAssoc double 1000 | tr -d '\n' # play with number
-echo ""
+function testJAVAvariants() {
+    local test_name="$1"
+    local test_cmd="$2"
+    echo -n "Java${CSV_SEPARATOR}"
+    echo -n "${test_name}${CSV_SEPARATOR}"
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
+    # local cmd_args=(python testassoc.py --seed 42 --number 1000) # play with number 
+    # local cmd_str=$(printf "%s " "${cmd_args[@]}")
+    local result_str=$(analyze_results 10 "${test_cmd}")
+    echo "$result_str"
+    # eval "${test_cmd}" | tr -d '\n' # play with number (and seed TODO)
+    echo ""
+}
 
 
-COMPILERS=("gcc" "clang") # TODO: specific flag of clang/gcc like -ffast-math -funsafe-math-optimizations -frounding-math -fsignaling-nans; gcc/clang version
-OPTIONS=("-DCUSTOM=1" "" "-DWIN=1 -DCUSTOM=1" "-DWIN=1")
-FLAGS=("-DOLD_MAIN_C=1" "")
+javac -d . *.java # prerequisite
+testJAVAvariants "java.util.Random.nextFloat()" "java assoc.TestAssoc basic 1000"
+testJAVAvariants "Math.random()" "java assoc.TestAssoc math 1000"
+testJAVAvariants "java.util.Random.nextDouble()" "java assoc.TestAssoc double 1000"
 
-for compiler in "${COMPILERS[@]}"; do
-    for i in {0..3}; do
-        for flag in "${FLAGS[@]}"; do
-            echo -n "C${CSV_SEPARATOR}"
-            case "$i" in
-                0)
-                    echo -n "custom${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
-                    ;;
-                1)
-                    echo -n "(srand48+rand48)${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
-                    ;;
-                2)
-                    echo -n "custom${CSV_SEPARATOR}Windows${CSV_SEPARATOR}"
-                    ;;
-                3)
-                    echo -n "(srand+rand)${CSV_SEPARATOR}Windows${CSV_SEPARATOR}"
-                    ;;
-            esac
 
-            echo -n "$compiler${CSV_SEPARATOR}"
-            echo -n "$flag${CSV_SEPARATOR}" # variability misc
-            $compiler -o testassoc testassoc.c ${OPTIONS[$i]} ${flag}
-            ./testassoc | tr -d '\n' # play with number of generations (proportions), default value used right now
-            echo ""
+function testCvariants() {
+    COMPILERS=("gcc" "clang") # TODO: specific flag of clang/gcc like -ffast-math -funsafe-math-optimizations -frounding-math -fsignaling-nans; gcc/clang version
+    OPTIONS=("-DCUSTOM=1" "" "-DWIN=1 -DCUSTOM=1" "-DWIN=1")
+    FLAGS=("-DOLD_MAIN_C=1" "")
+
+    for compiler in "${COMPILERS[@]}"; do
+        for i in {0..3}; do
+            for flag in "${FLAGS[@]}"; do
+                echo -n "C${CSV_SEPARATOR}"
+                case "$i" in
+                    0)
+                        echo -n "custom${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
+                        ;;
+                    1)
+                        echo -n "(srand48+rand48)${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
+                        ;;
+                    2)
+                        echo -n "custom${CSV_SEPARATOR}Windows${CSV_SEPARATOR}"
+                        ;;
+                    3)
+                        echo -n "(srand+rand)${CSV_SEPARATOR}Windows${CSV_SEPARATOR}"
+                        ;;
+                esac
+
+                echo -n "$compiler${CSV_SEPARATOR}"
+                echo -n "$flag${CSV_SEPARATOR}" # variability misc
+                # building 
+                $compiler -o testassoc testassoc.c ${OPTIONS[$i]} ${flag} # TODO: should be compile N times?
+                # TODO: play with number of generations (proportions), default value used right now
+                local cmd_args=(./testassoc) 
+                local cmd_str=$(printf "%s " "${cmd_args[@]}")
+                local result_str=$(analyze_results 10 "${cmd_str}")           
+                echo "$result_str"
+                echo ""
+            done
         done
     done
-done
+}
 
+testCvariants
 
 # Define function to run a Rust variant test and output result
 run_RSvariant() {
@@ -145,12 +161,18 @@ run_RSvariant "associativity"
 run_RSvariant "mult_inverse"
 run_RSvariant "mult_inverse_pi"
 
+function testLISPvariants() {
+    echo -n "LISP${CSV_SEPARATOR}"
+    echo -n "-${CSV_SEPARATOR}"
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specific
+    local cmd_args=(sbcl --noinform --quit --load test_assoc.lisp) # play with number
+    local cmd_str=$(printf "%s " "${cmd_args[@]}")
+    local result_str=$(analyze_results 10 "${cmd_str}")           
+    echo "$result_str"
+    echo ""
+}
 
-echo -n "LISP${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specific
-sbcl --noinform --quit --load test_assoc.lisp | tr -d '\n' # play with number
-echo ""
+testLISPvariants
 
 
 

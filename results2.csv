@@ -1,40 +1,61 @@
 Language,Library,System,Compiler,VariabilityMisc,Score
-Python,std,-,-,-,82.0%
-Java,java.util.Random.nextFloat(),-,-,-,100.0%
-Java,Math.random(),-,-,-,81.5%
-Java,java.util.Random.nextDouble(),-,-,-,84.3%
-C,custom,Linux,gcc,-DOLD_MAIN_C=1,74.596001%
-C,custom,Linux,gcc,,74.596001%
-C,(srand48+rand48),Linux,gcc,-DOLD_MAIN_C=1,100.000000%
-C,(srand48+rand48),Linux,gcc,,100.000000%
-C,custom,Windows,gcc,-DOLD_MAIN_C=1,74.596001%
-C,custom,Windows,gcc,,74.596001%
-C,(srand+rand),Windows,gcc,-DOLD_MAIN_C=1,100.000000%
-C,(srand+rand),Windows,gcc,,100.000000%
-C,custom,Linux,clang,-DOLD_MAIN_C=1,74.596001%
-C,custom,Linux,clang,,74.596001%
-C,(srand48+rand48),Linux,clang,-DOLD_MAIN_C=1,100.000000%
-C,(srand48+rand48),Linux,clang,,100.000000%
-C,custom,Windows,clang,-DOLD_MAIN_C=1,74.596001%
-C,custom,Windows,clang,,74.596001%
-C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,100.000000%
-C,(srand+rand),Windows,clang,,100.000000%
-Rust,-,-,-, --error_margin 0.000000000000001,Min: 54% Max: 55% Mean: 54.80% Std: .20%
+Python,std,-,-,-,Min: 82.0% Max: 82.0% Mean: 82.00% Std: 0
 
-Rust,-,-,-, --error_margin 0.000000000000001,Min: 97% Max: 98% Mean: 97.40% Std: .58%
+Java,java.util.Random.nextFloat(),-,-,-,Min: 100.0% Max: 100.0% Mean: 100.00% Std: 0
 
-Rust,-,-,-, --error_margin 0.000000000000001,Min: 96% Max: 97% Mean: 96.70% Std: .28%
+Java,Math.random(),-,-,-,Min: 81.2% Max: 84.1% Mean: 82.90% Std: .47
 
-Rust,-,-,-, (no error margin ie pure equality),Min: 74% Max: 75% Mean: 74.70% Std: .24%
+Java,java.util.Random.nextDouble(),-,-,-,Min: 80.5% Max: 84.1% Mean: 82.38% Std: .46
 
-Rust,-,-,-, (no error margin ie pure equality),Min: 64% Max: 65% Mean: 64.90% Std: .14%
+C,custom,Linux,gcc,-DOLD_MAIN_C=1,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
 
-Rust,-,-,-, (no error margin ie pure equality),Min: 53% Max: 54% Mean: 53.40% Std: .10%
+C,custom,Linux,gcc,,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
 
-LISP,-,-,-,-,100%
-JavaScript,-,-,-,associativity global seed,Min: 74.62% Max: 74.62% Mean: 74.62% Std: 0%
-JavaScript,-,-,-,mult_inverse global seed,Min: 64.96% Max: 64.96% Mean: 64.96% Std: 0%
-JavaScript,-,-,-,mult_inverse_pi global seed,Min: 53.96% Max: 53.96% Mean: 53.96% Std: 0%
-JavaScript,-,-,-,associativity,Min: 100% Max: 100% Mean: 100.00% Std: 0%
-JavaScript,-,-,-,mult_inverse,Min: 64.03% Max: 66.68% Mean: 65.27% Std: .34%
-JavaScript,-,-,-,mult_inverse_pi,Min: 52.98% Max: 54.97% Mean: 53.67% Std: .20%
+C,(srand48+rand48),Linux,gcc,-DOLD_MAIN_C=1,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,(srand48+rand48),Linux,gcc,,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,custom,Windows,gcc,-DOLD_MAIN_C=1,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,custom,Windows,gcc,,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,(srand+rand),Windows,gcc,-DOLD_MAIN_C=1,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,(srand+rand),Windows,gcc,,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,custom,Linux,clang,-DOLD_MAIN_C=1,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,custom,Linux,clang,,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,(srand48+rand48),Linux,clang,-DOLD_MAIN_C=1,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,(srand48+rand48),Linux,clang,,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,custom,Windows,clang,-DOLD_MAIN_C=1,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,custom,Windows,clang,,Min: 74.596001% Max: 74.596001% Mean: 74.59% Std: 0
+
+C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+C,(srand+rand),Windows,clang,,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+
+Rust,-,-,-, --error_margin 0.000000000000001,Min: 54% Max: 55% Mean: 54.50% Std: .34
+
+Rust,-,-,-, --error_margin 0.000000000000001,Min: 97% Max: 98% Mean: 97.30% Std: .67
+
+Rust,-,-,-, --error_margin 0.000000000000001,Min: 96% Max: 97% Mean: 96.80% Std: .17
+
+Rust,-,-,-, (no error margin ie pure equality),Min: 74% Max: 75% Mean: 74.60% Std: .31
+
+Rust,-,-,-, (no error margin ie pure equality),Min: 64% Max: 65% Mean: 64.70% Std: .40
+
+Rust,-,-,-, (no error margin ie pure equality),Min: 52% Max: 54% Mean: 53.20% Std: .31
+
+LISP,-,-,-,-,Min: 100% Max: 100% Mean: 100.00% Std: 0
+
+JavaScript,-,-,-,associativity global seed,Min: 74.62% Max: 74.62% Mean: 74.62% Std: 0
+JavaScript,-,-,-,mult_inverse global seed,Min: 64.96% Max: 64.96% Mean: 64.96% Std: 0
+JavaScript,-,-,-,mult_inverse_pi global seed,Min: 53.96% Max: 53.96% Mean: 53.96% Std: 0
+JavaScript,-,-,-,associativity,Min: 100% Max: 100% Mean: 100.00% Std: 0
+JavaScript,-,-,-,mult_inverse,Min: 64.31% Max: 65.71% Mean: 65.01% Std: .37
+JavaScript,-,-,-,mult_inverse_pi,Min: 53.04% Max: 54.64% Mean: 53.52% Std: .31

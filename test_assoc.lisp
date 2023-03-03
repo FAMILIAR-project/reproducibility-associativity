@@ -18,4 +18,4 @@
 (defun proportion (iter)
   (/ (* 100 (count t (loop for i from 1 to iter collect (associativity-test)))) iter))
 
-(format t "~A\%~%" (proportion 100000))
+(format t "~A\%~%" (proportion 42000)) ; TODO: parameterize CLI number of generations (proportions), default value systematically used right now

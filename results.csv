@@ -1,9 +1,36 @@
-Language; Library; System; Score
-Python; std; -;  82.8%
-Java;java.util.Random.nextFloat();-;100% 
-Java;Math.random();-;83.1%  
-C; custom64();Linux; 74.6%
-C; drand48();Linux; 100%
-C; custom64();Win64; 99.8%
-C; srand(); Win64; 100%  
-
+,Language,Library,System,Compiler,VariabilityMisc,NumberGenerations,Min,Max,Mean,Std
+0,Python,std,-,-,associativity,1000,82.0,82.0,82.00,0
+1,Python,std,-,-,mult-inverse,1000,65.3,65.3,65.30,0
+2,Python,std,-,-,mult-inverse-pi,1000,54.2,54.2,54.20,0
+3,Java,java.util.Random.nextFloat(),-,-,-,1000,100.0,100.0,100.00,0
+4,Java,Math.random(),-,-,-,1000,79.9,84.1,82.26,.37
+5,Java,java.util.Random.nextDouble(),-,-,-,1000,81.0,85.1,82.70,.45
+6,C,custom,Linux,gcc,-DOLD_MAIN_C=1,1000,73.900002,73.900002,73.90,0
+7,C,custom,Linux,gcc,,1000,73.900002,73.900002,73.90,0
+8,C,(srand48+rand48),Linux,gcc,-DOLD_MAIN_C=1,1000,100.000000,100.000000,100.00,0
+9,C,(srand48+rand48),Linux,gcc,,1000,100.000000,100.000000,100.00,0
+10,C,custom,Windows,gcc,-DOLD_MAIN_C=1,1000,73.900002,73.900002,73.90,0
+11,C,custom,Windows,gcc,,1000,73.900002,73.900002,73.90,0
+12,C,(srand+rand),Windows,gcc,-DOLD_MAIN_C=1,1000,100.000000,100.000000,100.00,0
+13,C,(srand+rand),Windows,gcc,,1000,100.000000,100.000000,100.00,0
+14,C,custom,Linux,clang,-DOLD_MAIN_C=1,1000,73.900002,73.900002,73.90,0
+15,C,custom,Linux,clang,,1000,73.900002,73.900002,73.90,0
+16,C,(srand48+rand48),Linux,clang,-DOLD_MAIN_C=1,1000,100.000000,100.000000,100.00,0
+17,C,(srand48+rand48),Linux,clang,,1000,100.000000,100.000000,100.00,0
+18,C,custom,Windows,clang,-DOLD_MAIN_C=1,1000,73.900002,73.900002,73.90,0
+19,C,custom,Windows,clang,,1000,73.900002,73.900002,73.90,0
+20,C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,1000,100.000000,100.000000,100.00,0
+21,C,(srand+rand),Windows,clang,,1000,100.000000,100.000000,100.00,0
+22,Rust,-,-,-, --error_margin 0.000000000000001,1000,54,56,54.70,.33
+23,Rust,-,-,-, --error_margin 0.000000000000001,1000,97,98,97.20,.77
+24,Rust,-,-,-, --error_margin 0.000000000000001,1000,96,97,96.50,.47
+25,Rust,-,-,-, (no error margin ie pure equality),1000,74,75,74.90,.20
+26,Rust,-,-,-, (no error margin ie pure equality),1000,64,65,64.40,.41
+27,Rust,-,-,-, (no error margin ie pure equality),1000,52,54,52.90,.10
+28,LISP,-,-,-,-,42000,100,100,100.00,0
+29,JavaScript,-,-,-,associativity global seed,1000,74.5,74.5,74.50,0
+30,JavaScript,-,-,-,mult_inverse global seed,1000,65.2,65.2,65.20,0
+31,JavaScript,-,-,-,mult_inverse_pi global seed,1000,56.4,56.4,56.40,0
+32,JavaScript,-,-,-,associativity,1000,100,100,100.00,0
+33,JavaScript,-,-,-,mult_inverse,1000,62.8,68.6,65.71,.36
+34,JavaScript,-,-,-,mult_inverse_pi,1000,50.1,54.1,52.15,.24

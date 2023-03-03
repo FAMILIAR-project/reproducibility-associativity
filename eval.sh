@@ -5,7 +5,9 @@
 # TODO number as a column 
 
 CSV_SEPARATOR=','
-echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}Score"
+echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}NumberGenerations${CSV_SEPARATOR}Score"
+
+GNUMBER_GENERATIONS=1000 # number of generations (global, can be used by any implementation)
 
 
 # run a command N times and return the min, max, mean, and std of the results
@@ -55,18 +57,17 @@ function analyze_results {
 
 function testPYvariants() {
   local test_name="$1"
-  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name}${CSV_SEPARATOR}" # TODO python version
-  local cmd_args=(python testassoc.py --seed 42 --number 1000 --equality-check "$test_name") # play with number 
+  local ngen="$2"
+  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO python version
+  local cmd_args=(python testassoc.py --seed 42 --number ${ngen} --equality-check "$test_name")  
   local cmd_str=$(printf "%s " "${cmd_args[@]}")
   local result_str=$(analyze_results 10 "${cmd_str}")
   echo "$result_str"
-  echo ""
 }
 
-
-testPYvariants "associativity"
-testPYvariants "mult-inverse"
-testPYvariants "mult-inverse-pi"
+testPYvariants "associativity" $GNUMBER_GENERATIONS
+testPYvariants "mult-inverse" $GNUMBER_GENERATIONS
+testPYvariants "mult-inverse-pi" $GNUMBER_GENERATIONS
 
 
 function testJAVAvariants() {
@@ -74,23 +75,21 @@ function testJAVAvariants() {
     local test_cmd="$2"
     echo -n "Java${CSV_SEPARATOR}"
     echo -n "${test_name}${CSV_SEPARATOR}"
-    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO JDK version
-    # local cmd_args=(python testassoc.py --seed 42 --number 1000) # play with number 
-    # local cmd_str=$(printf "%s " "${cmd_args[@]}")
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${GNUMBER_GENERATIONS}${CSV_SEPARATOR}" # TODO JDK version
     local result_str=$(analyze_results 10 "${test_cmd}")
     echo "$result_str"
-    # eval "${test_cmd}" | tr -d '\n' # play with number (and seed TODO)
-    echo ""
 }
 
 
-javac -d . *.java # prerequisite
-testJAVAvariants "java.util.Random.nextFloat()" "java assoc.TestAssoc basic 1000"
-testJAVAvariants "Math.random()" "java assoc.TestAssoc math 1000"
-testJAVAvariants "java.util.Random.nextDouble()" "java assoc.TestAssoc double 1000"
+javac -d . *.java # prerequisite (no variability here)
+testJAVAvariants "java.util.Random.nextFloat()" "java assoc.TestAssoc basic ${GNUMBER_GENERATIONS}"
+testJAVAvariants "Math.random()" "java assoc.TestAssoc math ${GNUMBER_GENERATIONS}"
+testJAVAvariants "java.util.Random.nextDouble()" "java assoc.TestAssoc double ${GNUMBER_GENERATIONS}"
 
 
 function testCvariants() {
+    local ngen="$1"
+
     COMPILERS=("gcc" "clang") # TODO: specific flag of clang/gcc like -ffast-math -funsafe-math-optimizations -frounding-math -fsignaling-nans; gcc/clang version
     OPTIONS=("-DCUSTOM=1" "" "-DWIN=1 -DCUSTOM=1" "-DWIN=1")
     FLAGS=("-DOLD_MAIN_C=1" "")
@@ -116,67 +115,67 @@ function testCvariants() {
 
                 echo -n "$compiler${CSV_SEPARATOR}"
                 echo -n "$flag${CSV_SEPARATOR}" # variability misc
+                echo -n "${ngen}${CSV_SEPARATOR}"
                 # building 
                 $compiler -o testassoc testassoc.c ${OPTIONS[$i]} ${flag} # TODO: should be compile N times?
                 # TODO: play with number of generations (proportions), default value used right now
-                local cmd_args=(./testassoc) 
+                local cmd_args=(./testassoc $ngen) 
                 local cmd_str=$(printf "%s " "${cmd_args[@]}")
                 local result_str=$(analyze_results 10 "${cmd_str}")           
                 echo "$result_str"
-                echo ""
             done
         done
     done
 }
 
-testCvariants
+testCvariants $GNUMBER_GENERATIONS
 
 # Define function to run a Rust variant test and output result
 run_RSvariant() {
     local feature=$1
-    local error_margin=$2
+    local ngen=$2
+    local error_margin=$3
+    
 
     # Run test with error margin if provided
     if [[ -n $error_margin ]]; then
         echo -n "Rust${CSV_SEPARATOR}"
         echo -n "-${CSV_SEPARATOR}"
-        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} --error_margin ${error_margin}${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} --error_margin ${error_margin}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
         local cmd_args=(cargo run --features "$feature" -q -- --error_margin "$error_margin")
     else
         echo -n "Rust${CSV_SEPARATOR}"
         echo -n "-${CSV_SEPARATOR}"
-        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} (no error margin ie pure equality)${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} (no error margin ie pure equality)${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
         local cmd_args=(cargo run --features "$feature" -q --)
     fi
 
     local cmd_str=$(printf "%s " "${cmd_args[@]}")
     local result_str=$(analyze_results 10 "${cmd_str}")
     echo "$result_str"
-
-    echo "" # Output newline at the end
 }
 
 
 # Call the function for each test
-run_RSvariant "associativity" "0.000000000000001"
-run_RSvariant "mult_inverse" "0.000000000000001"
-run_RSvariant "mult_inverse_pi" "0.000000000000001"
-run_RSvariant "associativity"
-run_RSvariant "mult_inverse"
-run_RSvariant "mult_inverse_pi"
+run_RSvariant "associativity" $GNUMBER_GENERATIONS "0.000000000000001" 
+run_RSvariant "mult_inverse" $GNUMBER_GENERATIONS "0.000000000000001" 
+run_RSvariant "mult_inverse_pi" $GNUMBER_GENERATIONS "0.000000000000001" 
+run_RSvariant "associativity" $GNUMBER_GENERATIONS
+run_RSvariant "mult_inverse" $GNUMBER_GENERATIONS
+run_RSvariant "mult_inverse_pi" $GNUMBER_GENERATIONS
 
 function testLISPvariants() {
+    local ngen="$1"
     echo -n "LISP${CSV_SEPARATOR}"
     echo -n "-${CSV_SEPARATOR}"
-    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specific
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO LISP specific
     local cmd_args=(sbcl --noinform --quit --load test_assoc.lisp) # play with number
     local cmd_str=$(printf "%s " "${cmd_args[@]}")
     local result_str=$(analyze_results 10 "${cmd_str}")           
     echo "$result_str"
-    echo ""
 }
 
-testLISPvariants
+testLISPvariants 42000 # TODO: play with number of generations (proportions), default value used right now
 
 
 
@@ -186,17 +185,18 @@ SEED="42"
 function run_JStest() {
   local check="$1"
   local with_gseed="$2"
+  local ngen="$3"
 
   echo -n "JavaScript${CSV_SEPARATOR}"
   echo -n "-${CSV_SEPARATOR}"
   if [[ "$with_gseed" = true ]]; then
-    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check} global seed${CSV_SEPARATOR}"
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check} global seed${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
   else
-    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check}${CSV_SEPARATOR}"
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
   fi
   
   
-  local npm_args=(--prefix js/ --silent -- --equality-check "${check}" --seed "${SEED}")
+  local npm_args=(--prefix js/ --silent -- --equality-check "${check}" --seed "${SEED}" --number "${ngen}") # TODO: play with number
   if [[ "$with_gseed" = true ]]; then
     npm_args+=(--with-gseed)
   fi
@@ -207,17 +207,9 @@ function run_JStest() {
   echo "$result_str"
 }
 
-run_JStest "associativity" true
-run_JStest "mult_inverse" true
-run_JStest "mult_inverse_pi" true
-run_JStest "associativity" false
-run_JStest "mult_inverse" false
-run_JStest "mult_inverse_pi" false
-
-# TODO: playing with npm version and randomseed version!
-# result_str=$(analyze_results 10 "npm start --prefix js/ --silent -- --equality-check associativity --seed 42 --with-gseed")
-# echo "$result_str"
-
-
-
-
+run_JStest "associativity" true $GNUMBER_GENERATIONS
+run_JStest "mult_inverse" true $GNUMBER_GENERATIONS
+run_JStest "mult_inverse_pi" true $GNUMBER_GENERATIONS
+run_JStest "associativity" false $GNUMBER_GENERATIONS
+run_JStest "mult_inverse" false $GNUMBER_GENERATIONS
+run_JStest "mult_inverse_pi" false $GNUMBER_GENERATIONS

@@ -106,23 +106,41 @@ echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specif
 sbcl --noinform --quit --load test_assoc.lisp | tr -d '\n' # play with number
 echo ""
 
-echo -n "JavaScript${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}associativity${CSV_SEPARATOR}" # TODO JS specific
-npm start --prefix js/ --silent -- --equality-check "associativity" --seed 42 | tr -d '\n' # play with number
-echo ""
+SEED="42"
 
-echo -n "JavaScript${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse${CSV_SEPARATOR}" # TODO JS specific
-npm start --prefix js/ --silent -- --equality-check "mult_inverse" --seed 42 | tr -d '\n' # play with number
-echo ""
+function run_test() {
+  local check="$1"
+  local with_gseed="$2"
 
-echo -n "JavaScript${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi${CSV_SEPARATOR}" # TODO JS specific
-npm start --prefix js/ --silent -- --equality-check "mult_inverse_pi" --seed 42 | tr -d '\n' # play with number
-echo ""
+  echo -n "JavaScript${CSV_SEPARATOR}"
+  echo -n "-${CSV_SEPARATOR}"
+  if [[ "$with_gseed" = true ]]; then
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check} global seed${CSV_SEPARATOR}"
+  else
+    echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${check}${CSV_SEPARATOR}"
+  fi
+  
+  
+  local npm_args=(--prefix js/ --silent -- --equality-check "${check}" --seed "${SEED}")
+  if [[ "$with_gseed" = true ]]; then
+    npm_args+=(--with-gseed)
+  fi
+  
+  npm start "${npm_args[@]}" | tr -d '\n'
+  
+  echo ""
+}
+
+# First run
+run_test "associativity" true
+run_test "mult_inverse" true
+run_test "mult_inverse_pi" true
+
+# Second run
+run_test "associativity" false
+run_test "mult_inverse" false
+run_test "mult_inverse_pi" false
+
 
 
 

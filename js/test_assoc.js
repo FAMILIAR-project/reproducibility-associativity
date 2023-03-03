@@ -23,8 +23,8 @@ function associativityTest(option) {
   }
 }
 
-function proportion(number, seedVal, option) {
-  const rng = seedrandom(seedVal);
+function proportion(number, seedVal, option, withSeed = true) {
+  const rng = seedrandom(seedVal, { global: withSeed }); // !without global : true, the seed does not affect Math.random() above! (and btw it changes all results!)
   let ok = 0;
   for (let i = 0; i < number; i++) {
     ok += associativityTest(option);
@@ -39,6 +39,8 @@ const parser = new ArgumentParser({
 parser.add_argument('--seed', { type: Number, required: true, help: 'Seed value' });
 parser.add_argument('--number', { type: Number, default: 10000, help: 'Number of tests' });
 parser.add_argument('--equality-check', { choices: Object.values(EqualityCheck), default: EqualityCheck.ASSOCIATIVITY, help: 'Type of equality check (associativity, mult_inverse, mult_inverse_pi)' });
+parser.add_argument('--with-gseed', { action: 'store_true', help: 'Use global seed value in random number generation' });
 const args = parser.parse_args();
 
-console.log(`${proportion(args.number, args.seed, args.equality_check)}%`);
+// Call the proportion function with the "withSeed" parameter value taken from the command line
+console.log(`${proportion(args.number, args.seed, args.equality_check, args.with_gseed)}%`);

@@ -21,7 +21,7 @@ function analyze_results {
 
   # Repeat the command N times and store the results
   for i in $(seq $N); do
-      result=$($command | tr -d '\n')
+      result=$($command | tr -d '\n' | tr -d '\r') # incredible caused by Wine situation: https://superuser.com/questions/1647642/using-variables-with-bc-syntax-error
       results+=("$result")
   done
 
@@ -98,6 +98,14 @@ function testCvariants() {
         for i in {0..3}; do
             for flag in "${FLAGS[@]}"; do
 
+                
+                local cmd_args=(./testassoc $ngen) # default execution command
+                # we use wine to run the executable on Windows
+                if [[ "$compiler" == "gcc" && "${OPTIONS[$i]}" == *"-DWIN=1"* ]]; then
+                    # export WINEDEBUG=-all
+                    cmd_args=(wine "./testassoc.exe" $ngen)
+                fi
+
                 # if compiler is gcc and options contains -DWIN=1, compiler is i686-w64-mingw32-gcc
                 if [[ "$compiler" == "gcc" && "${OPTIONS[$i]}" == *"-DWIN=1"* ]]; then
                     compiler="i686-w64-mingw32-gcc"
@@ -110,7 +118,7 @@ function testCvariants() {
                         echo -n "custom${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
                         ;;
                     1)
-                        echo -n "(srand48+rand48)${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
+                        echo -n "(srand48+drand48)${CSV_SEPARATOR}Linux${CSV_SEPARATOR}"
                         ;;
                     2)
                         echo -n "custom${CSV_SEPARATOR}Windows${CSV_SEPARATOR}"
@@ -125,8 +133,8 @@ function testCvariants() {
                 echo -n "${ngen}${CSV_SEPARATOR}"
                 # building 
                 $compiler -o testassoc testassoc.c ${OPTIONS[$i]} ${flag} # TODO: should be compile N times?
-                # TODO: play with number of generations (proportions), default value used right now
-                local cmd_args=(./testassoc $ngen) 
+                
+                
                 local cmd_str=$(printf "%s " "${cmd_args[@]}")
                 local result_str=$(analyze_results ${REPEAT} "${cmd_str}")           
                 echo "$result_str"
@@ -220,3 +228,28 @@ run_JStest "mult_inverse_pi" true $GNUMBER_GENERATIONS
 run_JStest "associativity" false $GNUMBER_GENERATIONS
 run_JStest "mult_inverse" false $GNUMBER_GENERATIONS
 run_JStest "mult_inverse_pi" false $GNUMBER_GENERATIONS
+
+
+
+
+function runBASHvariants() {
+
+  local ngen="$1"
+  local rel_eq="$2"
+
+  echo -n "Bash${CSV_SEPARATOR}"
+  echo -n "-${CSV_SEPARATOR}"
+  echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${rel_eq}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
+  
+  local cmd_args=(sh testassoc.sh -n ${ngen} -e ${rel_eq}) # play with number
+  local cmd_str=$(printf "%s " "${cmd_args[@]}")
+  local result_str=$(analyze_results ${REPEAT} "${cmd_str}")
+  
+  echo "$result_str"
+
+}
+
+# TODO fix number of generations, Bash is quite slow
+runBASHvariants 10 "associativity"
+runBASHvariants 10 "mult_inverse"
+runBASHvariants 10 "mult_inverse_pi"

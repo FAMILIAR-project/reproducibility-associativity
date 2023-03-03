@@ -15,7 +15,7 @@ Here are the current implementations:
  * configurable Bash implementation with `equality-check` using `-e` (associativity, multiplication inverse with and without Pi)
 
  All implementations (but LISP until now) support parameterization of the number of random generations. 
- Executions are repeated 10 times by default. 
+ Executions are repeated 10 times by default (min, max, average, std reported).
 
 To execute all variants and gathered results into a CSV: `export WINEDEBUG=-all; sh eval.sh > results.csv; python postdata.py; # do something with data like rich results.csv`
 

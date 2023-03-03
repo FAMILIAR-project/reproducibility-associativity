@@ -7,6 +7,53 @@
 CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}Score"
 
+
+# run a command N times and return the min, max, mean, and std of the results
+function analyze_results {
+  # Set the function parameters
+  N=$1
+  command=$2
+
+  # Create an array to store the results
+  results=()
+
+  # Repeat the command N times and store the results
+  for i in $(seq $N); do
+      result=$($command | tr -d '\n')
+      results+=("$result")
+  done
+
+  # Calculate the min, max, mean, and std of the results
+  min=$(echo "${results[@]}" | tr ' ' '\n' | sed 's/%//g' | sort -n | head -n 1)
+  max=$(echo "${results[@]}" | tr ' ' '\n' | sed 's/%//g' | sort -n | tail -n 1)
+  sum=$(echo "${results[@]}" | tr ' ' '\n' | sed 's/%//g' | awk '{s+=$1} END {print s}')
+  
+  if [ $N -eq 0 ]; then
+    mean=0
+  else
+    mean=$(echo "scale=2; $sum / $N" | bc)
+  fi
+
+  # std
+  sumsq=0
+  for i in "${results[@]}"; do
+    sumsq=$(echo "scale=2; $sumsq + ($i - $mean)^2" | bc)
+  done
+  if [ $N -eq 0 ]; then
+    std=0
+  else
+    std=$(echo "scale=2; sqrt($sumsq / $N)" | bc)
+  fi
+
+
+  # Build a string containing the results
+  result_str="Min: $min% Max: $max% Mean: $mean% Std: $std"
+  # result_str="Min: $min% Max: $max% Mean: $mean%"
+
+  # Return the result string
+  echo "$result_str"
+}
+
 echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO python version
 python testassoc.py --seed 42 --number 1000 | tr -d '\n' # play with number 
 echo "" 
@@ -64,47 +111,49 @@ for compiler in "${COMPILERS[@]}"; do
 done
 
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}associativity --error_margin 0.000000000000001${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features associativity -q -- --error_margin 0.000000000000001 | tr -d '\n' # play with number
-echo ""
+# Define function to run a Rust variant test and output result
+run_RSvariant() {
+    local feature=$1
+    local error_margin=$2
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse --error_margin 0.000000000000001${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features mult_inverse -q -- --error_margin 0.000000000000001 | tr -d '\n' # play with number
-echo ""
+    # Run test with error margin if provided
+    if [[ -n $error_margin ]]; then
+        echo -n "Rust${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} --error_margin ${error_margin}${CSV_SEPARATOR}"
+        local cmd_args=(cargo run --features "$feature" -q -- --error_margin "$error_margin")
+    else
+        echo -n "Rust${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} (no error margin ie pure equality)${CSV_SEPARATOR}"
+        local cmd_args=(cargo run --features "$feature" -q --)
+    fi
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi --error_margin 0.000000000000001${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features mult_inverse_pi -q -- --error_margin 0.000000000000001 | tr -d '\n' # play with number
-echo ""
+    local cmd_str=$(printf "%s " "${cmd_args[@]}")
+    local result_str=$(analyze_results 10 "${cmd_str}")
+    echo "$result_str"
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}associativity (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features associativity -q -- | tr -d '\n' # play with number
-echo ""
+    echo "" # Output newline at the end
+}
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features mult_inverse -q -- | tr -d '\n' # play with number
-echo ""
 
-echo -n "Rust${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}"
-echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}mult_inverse_pi (no error margin ie pure equality)${CSV_SEPARATOR}" # TODO Rust-specific
-cargo run --features mult_inverse_pi -q -- | tr -d '\n' # play with number
-echo ""
+# Call the function for each test
+run_RSvariant "associativity" "0.000000000000001"
+run_RSvariant "mult_inverse" "0.000000000000001"
+run_RSvariant "mult_inverse_pi" "0.000000000000001"
+run_RSvariant "associativity"
+run_RSvariant "mult_inverse"
+run_RSvariant "mult_inverse_pi"
+
 
 echo -n "LISP${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}"
 echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}" # TODO LISP specific
 sbcl --noinform --quit --load test_assoc.lisp | tr -d '\n' # play with number
 echo ""
+
+
+
 
 SEED="42"
 
@@ -126,9 +175,10 @@ function run_JStest() {
     npm_args+=(--with-gseed)
   fi
   
-  npm start "${npm_args[@]}" | tr -d '\n'
-  
-  echo ""
+  npm_args_str=$(printf "%s " "${npm_args[@]}")
+  # eval "npm start ${npm_args_str}"
+  result_str=$(analyze_results 10 "npm start ${npm_args_str}")
+  echo "$result_str"
 }
 
 run_JStest "associativity" true
@@ -139,7 +189,8 @@ run_JStest "mult_inverse" false
 run_JStest "mult_inverse_pi" false
 
 # TODO: playing with npm version and randomseed version!
-
+# result_str=$(analyze_results 10 "npm start --prefix js/ --silent -- --equality-check associativity --seed 42 --with-gseed")
+# echo "$result_str"
 
 
 

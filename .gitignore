@@ -7,3 +7,5 @@ testassoc.exe
 /target
 /node_modules
 js/node_modules/
+scala/target/*
+scala/target/

@@ -7,8 +7,8 @@
 CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}NumberGenerations${CSV_SEPARATOR}Score"
 
-GNUMBER_GENERATIONS=10000 # number of generations (global, can be used by any implementation)
-REPEAT=10 # number of times to repeat the experiment per variant
+GNUMBER_GENERATIONS=100 # number of generations (global, can be used by any implementation)
+REPEAT=2 # number of times to repeat the experiment per variant
 
 # run a command N times and return the min, max, mean, and std of the results
 function analyze_results {
@@ -21,7 +21,7 @@ function analyze_results {
 
   # Repeat the command N times and store the results
   for i in $(seq $N); do
-      result=$($command | tr -d '\n' | tr -d '\r') # incredible caused by Wine situation: https://superuser.com/questions/1647642/using-variables-with-bc-syntax-error
+      result=`eval $command | tr -d '\n' | tr -d '\r'` # incredible caused by Wine situation: https://superuser.com/questions/1647642/using-variables-with-bc-syntax-error
       results+=("$result")
   done
 
@@ -156,12 +156,12 @@ run_RSvariant() {
     if [[ -n $error_margin ]]; then
         echo -n "Rust${CSV_SEPARATOR}"
         echo -n "-${CSV_SEPARATOR}"
-        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} --error_margin ${error_margin}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${feature} --error_margin ${error_margin}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
         local cmd_args=(cargo run --features "$feature" -q -- --error_margin "$error_margin")
     else
         echo -n "Rust${CSV_SEPARATOR}"
         echo -n "-${CSV_SEPARATOR}"
-        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR} (no error margin ie pure equality)${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
+        echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${feature} (no error margin ie pure equality)${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
         local cmd_args=(cargo run --features "$feature" -q --)
     fi
 
@@ -253,3 +253,34 @@ function runBASHvariants() {
 runBASHvariants 10 "associativity"
 runBASHvariants 10 "mult_inverse"
 runBASHvariants 10 "mult_inverse_pi"
+
+function runScalavariants() {
+
+  local ngen="$1"
+  local rel_eq="$2"
+
+  echo -n "Scala${CSV_SEPARATOR}"
+  echo -n "-${CSV_SEPARATOR}"
+  echo -n "-${CSV_SEPARATOR}-${CSV_SEPARATOR}${rel_eq}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}"
+  
+  # local cmd_args=(sbt -warn -Dsbt.log.noformat=true \"run  --seed 123 --number ${ngen} --equality-check ${rel_eq}\") # play with number
+  # local cmd_str=$(printf "%s " "${cmd_args[@]}")
+  local cmd_str=$(printf "%s \"%s\"" "sbt -warn -Dsbt.log.noformat=true" "run --seed 42 --number ${ngen} --equality-check ${rel_eq}")
+  # local result_str=$(analyze_results ${REPEAT} ${cmd_str})
+  # echo "${cmd_str}"
+  # local result_str=`eval analyze_results ${REPEAT} ${cmd_str}`
+
+  local result_str=`eval ${cmd_str}`
+  # local result_str=`eval ${cmd_str}`
+  # $(${cmd_str})
+  # local result_str=$(sbt -warn -Dsbt.log.noformat=true "run --seed 42 --number ${ngen} --equality-check ${rel_eq}")
+
+  echo "${result_str}"
+  # echo "${cmd_str}"
+
+}
+
+# TODO FIXME 
+# cd scala
+# runScalavariants $GNUMBER_GENERATIONS "Associativity"
+

@@ -1,39 +1,40 @@
-,Language,Library,System,Compiler,VariabilityMisc,NumberGenerations,Min,Max,Mean,Std
-0,Python,std,-,-,associativity,10000,83.01,83.01,83.01,0
-1,Python,std,-,-,mult-inverse,10000,64.15,64.15,64.15,0
-2,Python,std,-,-,mult-inverse-pi,10000,53.75,53.75,53.75,0
-3,Java,java.util.Random.nextFloat(),-,-,-,10000,100.0,100.0,100.00,0
-4,Java,Math.random(),-,-,-,10000,82.07,83.17,82.83,.26
-5,Java,java.util.Random.nextDouble(),-,-,-,10000,82.33,83.49,82.79,.45
-6,C,custom,Linux,gcc,-DOLD_MAIN_C=1,10000,74.389999,74.389999,74.39,.74
-7,C,custom,Linux,gcc,,10000,74.389999,74.389999,74.39,.74
-8,C,(srand48+drand48),Linux,gcc,-DOLD_MAIN_C=1,10000,100.000000,100.000000,100.00,0
-9,C,(srand48+drand48),Linux,gcc,,10000,100.000000,100.000000,100.00,0
-10,C,custom,Windows,i686-w64-mingw32-gcc,-DOLD_MAIN_C=1,10000,100.000000,100.000000,100.00,0
-11,C,custom,Windows,i686-w64-mingw32-gcc,,10000,100.000000,100.000000,100.00,0
-12,C,(srand+rand),Windows,i686-w64-mingw32-gcc,-DOLD_MAIN_C=1,10000,100.000000,100.000000,100.00,0
-13,C,(srand+rand),Windows,i686-w64-mingw32-gcc,,10000,100.000000,100.000000,100.00,0
-14,C,custom,Linux,clang,-DOLD_MAIN_C=1,10000,74.389999,74.389999,74.39,.74
-15,C,custom,Linux,clang,,10000,74.389999,74.389999,74.39,.74
-16,C,(srand48+drand48),Linux,clang,-DOLD_MAIN_C=1,10000,100.000000,100.000000,100.00,0
-17,C,(srand48+drand48),Linux,clang,,10000,100.000000,100.000000,100.00,0
-18,C,custom,Windows,clang,-DOLD_MAIN_C=1,10000,74.389999,74.389999,74.39,.74
-19,C,custom,Windows,clang,,10000,74.389999,74.389999,74.39,.74
-20,C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,10000,100.000000,100.000000,100.00,0
-21,C,(srand+rand),Windows,clang,,10000,100.000000,100.000000,100.00,0
-22,Rust,-,-,-, --error_margin 0.000000000000001,10000,54,55,54.80,.20
-23,Rust,-,-,-, --error_margin 0.000000000000001,10000,97,98,97.60,.38
-24,Rust,-,-,-, --error_margin 0.000000000000001,10000,96,97,96.40,.57
-25,Rust,-,-,-, (no error margin ie pure equality),10000,74,75,74.50,.38
-26,Rust,-,-,-, (no error margin ie pure equality),10000,64,65,64.60,.30
-27,Rust,-,-,-, (no error margin ie pure equality),10000,52,54,53.00,.14
-28,LISP,-,-,-,-,42000,100,100,100.00,0
-29,JavaScript,-,-,-,associativity global seed,10000,74.62,74.62,74.62,0
-30,JavaScript,-,-,-,mult_inverse global seed,10000,64.96,64.96,64.96,0
-31,JavaScript,-,-,-,mult_inverse_pi global seed,10000,53.96,53.96,53.96,0
-32,JavaScript,-,-,-,associativity,10000,100,100,100.00,0
-33,JavaScript,-,-,-,mult_inverse,10000,64.69,65.62,65.20,.36
-34,JavaScript,-,-,-,mult_inverse_pi,10000,52.37,54.53,53.40,.17
-35,Bash,-,-,-,associativity,10,100.00,100.00,100.00,0
-36,Bash,-,-,-,mult_inverse,10,100.00,100.00,100.00,0
-37,Bash,-,-,-,mult_inverse_pi,10,30.00,60.00,44.00,.31
+Language,Library,System,Compiler,VariabilityMisc,NumberGenerations,Score
+Python,std,-,-,associativity,100,Min: 80.0% Max: 80.0% Mean: 80.00% Std: 0
+Python,std,-,-,mult-inverse,100,Min: 70.0% Max: 70.0% Mean: 70.00% Std: 0
+Python,std,-,-,mult-inverse-pi,100,Min: 62.0% Max: 62.0% Mean: 62.00% Std: 0
+Java,java.util.Random.nextFloat(),-,-,-,100,Min: 100.0% Max: 100.0% Mean: 100.00% Std: 0
+Java,Math.random(),-,-,-,100,Min: 78.0% Max: 83.0% Mean: 80.50% Std: .50
+Java,java.util.Random.nextDouble(),-,-,-,100,Min: 77.0% Max: 86.0% Mean: 81.50% Std: .40
+C,custom,Linux,gcc,-DOLD_MAIN_C=1,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,custom,Linux,gcc,,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,(srand48+drand48),Linux,gcc,-DOLD_MAIN_C=1,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,(srand48+drand48),Linux,gcc,,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,custom,Windows,i686-w64-mingw32-gcc,-DOLD_MAIN_C=1,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,custom,Windows,i686-w64-mingw32-gcc,,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,(srand+rand),Windows,i686-w64-mingw32-gcc,-DOLD_MAIN_C=1,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,(srand+rand),Windows,i686-w64-mingw32-gcc,,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,custom,Linux,clang,-DOLD_MAIN_C=1,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,custom,Linux,clang,,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,(srand48+drand48),Linux,clang,-DOLD_MAIN_C=1,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,(srand48+drand48),Linux,clang,,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,custom,Windows,clang,-DOLD_MAIN_C=1,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,custom,Windows,clang,,100,Min: 77.000000% Max: 77.000000% Mean: 77.00% Std: 0
+C,(srand+rand),Windows,clang,-DOLD_MAIN_C=1,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+C,(srand+rand),Windows,clang,,100,Min: 100.000000% Max: 100.000000% Mean: 100.00% Std: 0
+Rust,-,-,-,associativity --error_margin 0.000000000000001,100,Min: 54% Max: 55% Mean: 54.50% Std: .34
+Rust,-,-,-,mult_inverse --error_margin 0.000000000000001,100,Min: 97% Max: 98% Mean: 97.50% Std: .47
+Rust,-,-,-,mult_inverse_pi --error_margin 0.000000000000001,100,Min: 96% Max: 97% Mean: 96.50% Std: .47
+Rust,-,-,-,associativity (no error margin ie pure equality),100,Min: 74% Max: 75% Mean: 74.50% Std: .38
+Rust,-,-,-,mult_inverse (no error margin ie pure equality),100,Min: 64% Max: 65% Mean: 64.50% Std: .36
+Rust,-,-,-,mult_inverse_pi (no error margin ie pure equality),100,Min: 52% Max: 53% Mean: 52.50% Std: .34
+LISP,-,-,-,-,42000,Min: 100% Max: 100% Mean: 100.00% Std: 0
+JavaScript,-,-,-,associativity global seed,100,Min: 68% Max: 68% Mean: 68.00% Std: 0
+JavaScript,-,-,-,mult_inverse global seed,100,Min: 60% Max: 60% Mean: 60.00% Std: 0
+JavaScript,-,-,-,mult_inverse_pi global seed,100,Min: 59% Max: 59% Mean: 59.00% Std: 0
+JavaScript,-,-,-,associativity,100,Min: 100% Max: 100% Mean: 100.00% Std: 0
+JavaScript,-,-,-,mult_inverse,100,Min: 58% Max: 64% Mean: 61.00% Std: .38
+JavaScript,-,-,-,mult_inverse_pi,100,Min: 41% Max: 58% Mean: 49.50% Std: .28
+Bash,-,-,-,associativity,10,Min: 100.00% Max: 100.00% Mean: 100.00% Std: 0
+Bash,-,-,-,mult_inverse,10,Min: 100.00% Max: 100.00% Mean: 100.00% Std: 0
+Bash,-,-,-,mult_inverse_pi,10,Min: 40.00% Max: 50.00% Mean: 45.00% Std: .28
+Scala,-,-,-,Associativity,100,77.0%

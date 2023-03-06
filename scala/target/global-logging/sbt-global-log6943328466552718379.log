@@ -1,0 +1,89 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.8.2 (Red Hat, Inc. Java 17.0.6)
+[debug] Load.defaultLoad until apply took 68.420416ms
+[debug]           Load.loadUnit: plugins took 48.290948ms
+[debug]           Load.loadUnit: defsScala took 0.221265ms
+[debug] [Loading] Scanning directory /home/mathieuacher/Downloads/testAssoc/scala/project
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /home/mathieuacher/Downloads/testAssoc/scala/project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 20.477278 ms
+[debug]               Load.resolveProject(scala-build) took 49.382483ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id scala-build, base: /home/mathieuacher/Downloads/testAssoc/scala/project, plugins: List(<none>))) took 90.860042ms
+[debug] [Loading] Done in /home/mathieuacher/Downloads/testAssoc/scala/project, returning: (scala-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 109.521975ms
+[debug]           Load.loadUnit: cleanEvalClasses took 0.217752ms
+[debug]         Load.loadUnit(file:/home/mathieuacher/Downloads/testAssoc/scala/project/, ...) took 162.798037ms
+[debug]       Load.apply: load took 330.399218ms
+[debug]       Load.apply: resolveProjects took 6.865182ms
+[debug]       Load.apply: finalTransforms took 65.716318ms
+[debug]       Load.apply: config.delegates took 5.387605ms
+[debug]       Load.apply: Def.make(settings)... took 296.708349ms
+[debug]       Load.apply: structureIndex took 75.937255ms
+[debug]       Load.apply: mkStreams took 1.001026ms
+[info] loading project definition from /home/mathieuacher/Downloads/testAssoc/scala/project
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug]     Load.loadUnit: plugins took 1490.919579ms
+[debug]     Load.loadUnit: defsScala took 0.003705ms
+[debug] [Loading] Scanning directory /home/mathieuacher/Downloads/testAssoc/scala
+[debug]       Load.loadUnit: mkEval took 3.458819ms
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /home/mathieuacher/Downloads/testAssoc/scala, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 1.753018 ms
+[info] loading settings for project scala from build.sbt ...
+[debug]         Load.resolveProject(scala) took 1.969761ms
+[debug]       Load.loadTransitive: finalizeProject(Project(id scala, base: /home/mathieuacher/Downloads/testAssoc/scala, plugins: List(<none>))) took 4.257944ms
+[debug] [Loading] Done in /home/mathieuacher/Downloads/testAssoc/scala, returning: (scala)
+[debug]     Load.loadUnit: loadedProjectsRaw took 66.002397ms
+[debug]     Load.loadUnit: cleanEvalClasses took 2.499643ms
+[debug]   Load.loadUnit(file:/home/mathieuacher/Downloads/testAssoc/scala/, ...) took 1561.36902ms
+[debug] Load.apply: load took 1580.96378ms
+[debug] Load.apply: resolveProjects took 0.114491ms
+[debug] Load.apply: finalTransforms took 8.346469ms
+[debug] Load.apply: config.delegates took 0.325546ms
+[debug] Load.apply: Def.make(settings)... took 81.364937ms
+[debug] Load.apply: structureIndex took 26.547336ms
+[debug] Load.apply: mkStreams took 0.001921ms
+[info] set current project to TestAssoc (in build file:/home/mathieuacher/Downloads/testAssoc/scala/)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(notifyUsersAboutShell, None, None)
+[debug] > Exec(iflast shell, None, None)
+[debug] > Exec(shell, None, None)
+[info] sbt server started at local:///home/mathieuacher/.sbt/1.0/server/d73716f82ca6e74a8387/sock
+[debug] Writing bsp connection file
+[info] started sbt server

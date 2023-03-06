@@ -35,7 +35,7 @@ def proportion(number: int, seed_val: int, equality_check: EqualityCheck) -> int
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Equality test with seed.')
-    parser.add_argument('--seed', type=int, required=True, help='Seed value')
+    parser.add_argument('--seed', type=int, default=None, help='Seed value.')
     parser.add_argument('--number', type=int, default=10000, help='Number of tests')
     parser.add_argument('--equality-check', type=EqualityCheck, required=True, choices=list(EqualityCheck), help='Type of equality check')
     args = parser.parse_args()

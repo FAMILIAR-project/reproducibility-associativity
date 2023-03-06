@@ -58,8 +58,17 @@ function analyze_results {
 function testPYvariants() {
   local test_name="$1"
   local ngen="$2"
-  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO python version
-  local cmd_args=(python testassoc.py --seed 42 --number ${ngen} --equality-check "$test_name")  
+  local seed="$3"
+  
+  local variability_misc="no seed"
+  if [ -n "$seed" ]; then
+    variability_misc="seed $seed"
+  fi
+  echo -n "Python${CSV_SEPARATOR}std${CSV_SEPARATOR}-${CSV_SEPARATOR}-${CSV_SEPARATOR}${test_name} ${variability_misc}${CSV_SEPARATOR}${ngen}${CSV_SEPARATOR}" # TODO python version
+  local cmd_args=(python testassoc.py --number ${ngen} --equality-check "$test_name")
+  if [ -n "$seed" ]; then
+    cmd_args+=(--seed "$seed")
+  fi
   local cmd_str=$(printf "%s " "${cmd_args[@]}")
   local result_str=$(analyze_results ${REPEAT} "${cmd_str}")
   echo "$result_str"
@@ -68,6 +77,10 @@ function testPYvariants() {
 testPYvariants "associativity" $GNUMBER_GENERATIONS
 testPYvariants "mult-inverse" $GNUMBER_GENERATIONS
 testPYvariants "mult-inverse-pi" $GNUMBER_GENERATIONS
+
+testPYvariants "associativity" $GNUMBER_GENERATIONS 42
+testPYvariants "mult-inverse" $GNUMBER_GENERATIONS 42
+testPYvariants "mult-inverse-pi" $GNUMBER_GENERATIONS 42
 
 
 function testJAVAvariants() {

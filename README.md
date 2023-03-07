@@ -17,7 +17,9 @@ Here are the current implementations:
  All implementations (but LISP until now) support parameterization of the number of random generations. 
  Executions are repeated 10 times by default (min, max, average, std reported).
 
-To execute all variants and gathered results into a CSV: `export WINEDEBUG=-all; sh eval.sh > results.csv; python postdata.py; # do something with data like rich results.csv`
+To execute all variants and gathered results into a CSV: `export WINEDEBUG=-all; python eval.py > results.csv; # do something with data like rich results.csv`
+
+note: `eval.sh` is deprecated and replaced by `eval.py` 
 
 ## Resources
 

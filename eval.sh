@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# TODO: repeat N times the experiments and report std/mean/min/max in the Score
-
-# TODO number as a column 
-
 CSV_SEPARATOR=','
 echo "Language${CSV_SEPARATOR}Library${CSV_SEPARATOR}System${CSV_SEPARATOR}Compiler${CSV_SEPARATOR}VariabilityMisc${CSV_SEPARATOR}NumberGenerations${CSV_SEPARATOR}Score"
 

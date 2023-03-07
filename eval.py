@@ -3,7 +3,7 @@ import subprocess
 
 import numpy as np
 
-GNUMBER_GENERATIONS=100
+GNUMBER_GENERATIONS=1000
 REPEAT=10
 CSV_SEPARATOR=","
 
@@ -282,9 +282,42 @@ def test_Scala_variants(ngen, rel_eq):
     print_variant_results(variant_info, result_str)
 
 
+def test_Swift_variants(ngen, rel_eq):
+    variant_info = {
+        "Language": "Swift",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq
+    }
+    
+    cmd_str = 'swift run --skip-build testassoc --number {} --equality-check {}'.format(ngen, rel_eq) # incredible: Swift has no --quiet mode yet https://github.com/apple/swift-package-manager/issues/4395 (dec 2022)
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+
+def build_Swift_variants():
+    # execute javac -d . *.java
+    cmd_args = ["swift", "build"]
+    cmd_str = " ".join(cmd_args)
+    result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Error while building Swift variants")
+        print(result.stderr)
+        exit(1)
+
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("swift")
+build_Swift_variants() # prerequiste
+test_Swift_variants(GNUMBER_GENERATIONS, "associativity")
+test_Swift_variants(GNUMBER_GENERATIONS, "mult-inverse")
+test_Swift_variants(GNUMBER_GENERATIONS, "mult-inverse-pi")
+os.chdir("..")  # change back to previous directory
 
 os.chdir("scala")
 test_Scala_variants(GNUMBER_GENERATIONS, "Associativity")

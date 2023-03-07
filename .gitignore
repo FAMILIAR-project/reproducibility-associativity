@@ -9,3 +9,5 @@ testassoc.exe
 js/node_modules/
 scala/target/*
 scala/target/
+swift/.build/*
+swift/.build/

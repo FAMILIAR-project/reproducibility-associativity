@@ -33,6 +33,27 @@ def print_variant_results(variant_info, result):
                 print(f"{CSV_SEPARATOR}")
     print()
 
+def analyze_results(repeat, cmd_str):
+    assert(repeat > 0)
+    results = []
+    for i in range(repeat):
+        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+        results.append(result.stdout.strip())
+    # compute min, max, mean, std of results and store them in a dictionary
+    # each element of results being a string ending with % 
+    results = [float(r.replace("%", "")) for r in results]
+    res = {
+        "min": np.min(results),
+        "max": np.max(results),
+        "mean": np.mean(results), # assume repeat > 0
+        "std": np.std(results),
+    }
+    return res
+
+
+########### variants 
+
+
 def test_PY_variants(test_name, ngen, seed=None):
     variant_info = {
     "Language": "Python",
@@ -56,24 +77,30 @@ def test_PY_variants(test_name, ngen, seed=None):
     result = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result)
    
-def analyze_results(repeat, cmd_str):
-    assert(repeat > 0)
-    results = []
-    for i in range(repeat):
-        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
-        results.append(result.stdout.strip())
-    # compute min, max, mean, std of results and store them in a dictionary
-    # each element of results being a string ending with % 
-    results = [float(r.replace("%", "")) for r in results]
-    res = {
-        "min": np.min(results),
-        "max": np.max(results),
-        "mean": np.mean(results), # assume repeat > 0
-        "std": np.std(results),
+
+# TODO JDK version
+def test_JAVA_variants(rand_strategy_name, ngen, test_cmd):
+    variant_info = {
+        "Language": "Java",
+        "Library": rand_strategy_name,
+        "System": "linux",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": GNUMBER_GENERATIONS,
+        "EqualityCheck": "",
     }
-    return res
+
+    cmd_args = ["java", "assoc.TestAssoc", test_cmd, str(ngen)]
+    cmd_str = " ".join(cmd_args)
+    result = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result)
 
 print_column_names()
+
+test_JAVA_variants("java.util.Random.nextFloat()", GNUMBER_GENERATIONS, "basic")
+test_JAVA_variants("Math.random()", GNUMBER_GENERATIONS, "math")
+test_JAVA_variants("java.util.Random.nextDouble()", GNUMBER_GENERATIONS, "double")
+
 
 test_PY_variants("associativity", GNUMBER_GENERATIONS)
 test_PY_variants("mult-inverse", GNUMBER_GENERATIONS)

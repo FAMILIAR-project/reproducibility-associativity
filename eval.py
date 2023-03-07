@@ -309,7 +309,7 @@ def build_Swift_variants():
 
 
 
-def test_Ocaml_variants(ngen, rel_eq):
+def test_Ocaml_variants(ngen, rel_eq, seed=42):
     variant_info = {
         "Language": "Ocaml",
         "Library": "",
@@ -319,8 +319,11 @@ def test_Ocaml_variants(ngen, rel_eq):
         "NumberGenerations": ngen,
         "EqualityCheck": rel_eq
     }
-    
-    cmd_str = './testassoc --seed 123 --number {} --equality-check {}'.format(ngen, rel_eq) 
+    if seed is None:
+        cmd_str = './testassoc --number {} --equality-check {}'.format(ngen, rel_eq)
+    else:
+        cmd_str = './testassoc --number {} --equality-check {} --seed {}'.format(ngen, rel_eq, seed) 
+    variant_info["VariabilityMisc"] = "seed {}".format(seed)
     result_str = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result_str)
 
@@ -339,9 +342,13 @@ print_column_names()
 
 os.chdir("ocaml")
 build_Ocaml_variants() # prerequiste
-test_Ocaml_variants(GNUMBER_GENERATIONS, "associativity")
-test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse")
-test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse-pi")
+test_Ocaml_variants(GNUMBER_GENERATIONS, "associativity", 42)
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse", 42)
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", 42)
+
+test_Ocaml_variants(GNUMBER_GENERATIONS, "associativity", None)
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse", None)
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", None)
 os.chdir("..")  # change back to previous directory
 
 os.chdir("swift")

@@ -7,7 +7,7 @@ GNUMBER_GENERATIONS=1000
 REPEAT=10
 CSV_SEPARATOR=","
 
-COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "min", "max", "std", "mean"]
+COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "Repeat", "min", "max", "std", "mean"]
 
 def print_column_names():
     # Print column names with separator, except for last element
@@ -24,6 +24,8 @@ def print_variant_results(variant_info, result):
         if i < len(COLUMN_NAMES) - 1:
             if col in variant_info:
                 print(f"{variant_info[col]}{CSV_SEPARATOR}", end="")
+            elif col == "Repeat": # assuming Repeat is not the last column
+                print(f"{REPEAT}{CSV_SEPARATOR}", end="")            
             else:
                 print(f"{CSV_SEPARATOR}", end="")
         else:

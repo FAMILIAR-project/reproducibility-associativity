@@ -21,7 +21,11 @@ let proportion number seed_val equality_check : float =
      This may be desirable in some cases (e.g., when running tests that should not depend on a specific random seed), but not in others (e.g., when trying to reproduce a specific sequence of random numbers). 
      It seems wrong according to the doc here:
      https://v2.ocaml.org/api/Random.html *)  
-  Random.init seed_val; 
+  (* in fact, after prompting "--seed is optional... please rewrite the program above" I get the right program, including the lines just below... incredible*)
+  let () = match seed_val with
+    | Some seed -> Random.init seed
+    | None -> Random.self_init ()
+  in
   let ok = ref 0 in
   for i = 0 to number - 1 do
     let x = Random.float 1.0 in
@@ -55,11 +59,12 @@ let () =
   let usage_msg = "Equality test with seed." in
   let () =
     parse options (fun _ -> ()) usage_msg;
-    match !seed, !equality_check with
-    | Some seed_val, Some ec ->
-        printf "%.2f%%\n" (proportion !number seed_val ec)
-    | _, _ ->
-        eprintf "Missing required arguments: --seed, --equality-check\n";
+    match !equality_check with
+    | None ->
+        eprintf "Missing required argument: --equality-check\n";
         exit 1
+    | Some ec ->
+        let proportion = proportion !number !seed ec in
+        printf "%.2f%%\n" proportion
   in
   ()

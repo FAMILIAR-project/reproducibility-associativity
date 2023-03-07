@@ -1,4 +1,10 @@
 Language,Library,System,Compiler,VariabilityMisc,EqualityCheck,NumberGenerations,min,max,std,mean
+Rust,,,,--error_margin 0.000000000000001,associativity,100,53.0,56.0,0.7999999999999999,54.6
+Rust,,,,--error_margin 0.000000000000001,mult_inverse,100,97.0,97.0,0.0,97.0
+Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,100,96.0,97.0,0.4898979485566356,96.6
+Rust,,,,(no error margin ie pure equality),associativity,100,74.0,76.0,0.7000000000000001,74.9
+Rust,,,,(no error margin ie pure equality),mult_inverse,100,64.0,66.0,0.5385164807134505,64.9
+Rust,,,,(no error margin ie pure equality),mult_inverse_pi,100,52.0,54.0,0.6,53.2
 C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,77.0,77.0,0.0,77.0
 C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,100,77.0,77.0,0.0,77.0
 C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,100,100.0,100.0,0.0,100.0
@@ -16,11 +22,11 @@ C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,assoc
 C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,100.0,100.0,0.0,100.0
 C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,100,100.0,100.0,0.0,100.0
 Java,java.util.Random.nextFloat(),linux,,,associativity,100,100.0,100.0,0.0,100.0
-Java,Math.random(),linux,,,associativity,100,73.0,85.0,3.605551275463989,82.0
-Java,java.util.Random.nextDouble(),linux,,,associativity,100,73.0,91.0,5.000999900019995,83.7
-Python,std,linux,,no seed,associativity,100,77.0,92.0,4.214261501141095,81.8
-Python,std,linux,,no seed,mult-inverse,100,60.0,78.0,4.673328578219168,66.4
-Python,std,linux,,no seed,mult-inverse-pi,100,45.0,58.0,3.874274125562103,51.3
+Java,Math.random(),linux,,,associativity,100,79.0,88.0,3.0,82.0
+Java,java.util.Random.nextDouble(),linux,,,associativity,100,81.0,87.0,2.0024984394500787,83.7
+Python,std,linux,,no seed,associativity,100,73.0,86.0,3.682390527904394,81.2
+Python,std,linux,,no seed,mult-inverse,100,52.0,81.0,7.550496672405068,64.3
+Python,std,linux,,no seed,mult-inverse-pi,100,48.0,61.0,4.318564576337836,54.5
 Python,std,linux,,seed 42,associativity,100,80.0,80.0,0.0,80.0
 Python,std,linux,,seed 42,mult-inverse,100,70.0,70.0,0.0,70.0
 Python,std,linux,,seed 42,mult-inverse-pi,100,62.0,62.0,0.0,62.0

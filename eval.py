@@ -32,11 +32,11 @@ def print_variant_results(variant_info, result):
                 print(f"{CSV_SEPARATOR}")
 
 
-def analyze_results(repeat, cmd_str, env = {}):
+def analyze_results(repeat, cmd_str):
     assert(repeat > 0)
     results = []
     for i in range(repeat):
-        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True, env=env)
+        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
         results.append(result.stdout.strip())
     # compute min, max, mean, std of results and store them in a dictionary
     # each element of results being a string ending with % 
@@ -105,7 +105,7 @@ def test_JAVA_variants(rand_strategy_name, ngen, test_cmd):
     result = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result)
 
-def testCvariants(ngen):
+def test_C_variants(ngen):
 
     variant_info = {
         "Language": "C",
@@ -168,17 +168,48 @@ def testCvariants(ngen):
                     exit(1)         
                
                 # execution 
-                exec_cmd_str = " ".join(cmd_args)
-                l_env = {}
-                if "wine" in cmd_args:
-                    l_env["WINEDEBUG"] = "-all" # not sure it's working
-                result_str = analyze_results(REPEAT, exec_cmd_str, l_env)
+                exec_cmd_str = " ".join(cmd_args)               
+                result_str = analyze_results(REPEAT, exec_cmd_str) # TODO: wine environement debug
 
                 print_variant_results(variant_info, result_str)
 
+
+def test_RUST_variants(feature, ngen, error_margin=None):
+
+    variant_info = {
+        "Language": "Rust",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": feature
+    }
+
+    if error_margin:
+        variability_misc = f"--error_margin {error_margin}"
+        cmd_args = ["cargo", "run", "--features", feature, "-q", "--", "--error_margin", error_margin]
+    else:
+        variability_misc = f"(no error margin ie pure equality)"
+        cmd_args = ["cargo", "run", "--features", feature, "-q", "--"]
+    
+    variant_info["VariabilityMisc"] = variability_misc
+
+    cmd_str = " ".join(cmd_args)
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
 print_column_names()
 
-testCvariants(GNUMBER_GENERATIONS)
+# TODO: doubt: is run building?
+test_RUST_variants("associativity", GNUMBER_GENERATIONS, "0.000000000000001")
+test_RUST_variants("mult_inverse", GNUMBER_GENERATIONS, "0.000000000000001")
+test_RUST_variants("mult_inverse_pi", GNUMBER_GENERATIONS, "0.000000000000001")
+test_RUST_variants("associativity", GNUMBER_GENERATIONS)
+test_RUST_variants("mult_inverse", GNUMBER_GENERATIONS)
+test_RUST_variants("mult_inverse_pi", GNUMBER_GENERATIONS)
+
+test_C_variants(GNUMBER_GENERATIONS)
 
 
 compile_JAVA_variants() # prerequisites, applies to all variants

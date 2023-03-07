@@ -1,10 +1,23 @@
 Language,Library,System,Compiler,VariabilityMisc,EqualityCheck,NumberGenerations,min,max,std,mean
-Rust,,,,--error_margin 0.000000000000001,associativity,100,53.0,56.0,0.7999999999999999,54.6
-Rust,,,,--error_margin 0.000000000000001,mult_inverse,100,97.0,97.0,0.0,97.0
+Scala,,,,,Associativity,100,77.0,77.0,0.0,77.0
+Scala,,,,,MultInv,100,64.0,64.0,0.0,64.0
+Scala,,,,,MultInvPi,100,54.0,54.0,0.0,54.0
+Bash,,,,,associativity,100,100.0,100.0,0.0,100.0
+Bash,,,,,mult_inverse,100,100.0,100.0,0.0,100.0
+Bash,,,,,mult_inverse_pi,100,34.0,50.0,5.102940328869229,40.4
+LISP,,,,,associativity,42000,100.0,100.0,0.0,100.0
+JavaScript,,,, global seed,associativity,100,68.0,68.0,0.0,68.0
+JavaScript,,,, global seed,mult_inverse,100,60.0,60.0,0.0,60.0
+JavaScript,,,, global seed,mult_inverse_pi,100,59.0,59.0,0.0,59.0
+JavaScript,,,,no global seed,associativity,100,100.0,100.0,0.0,100.0
+JavaScript,,,,no global seed,mult_inverse,100,56.0,73.0,5.139066063011839,67.3
+JavaScript,,,,no global seed,mult_inverse_pi,100,44.0,57.0,4.386342439892261,52.4
+Rust,,,,--error_margin 0.000000000000001,associativity,100,55.0,56.0,0.3,55.1
+Rust,,,,--error_margin 0.000000000000001,mult_inverse,100,97.0,98.0,0.30000000000000004,97.1
 Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,100,96.0,97.0,0.4898979485566356,96.6
-Rust,,,,(no error margin ie pure equality),associativity,100,74.0,76.0,0.7000000000000001,74.9
-Rust,,,,(no error margin ie pure equality),mult_inverse,100,64.0,66.0,0.5385164807134505,64.9
-Rust,,,,(no error margin ie pure equality),mult_inverse_pi,100,52.0,54.0,0.6,53.2
+Rust,,,,(no error margin ie pure equality),associativity,100,74.0,75.0,0.30000000000000004,74.9
+Rust,,,,(no error margin ie pure equality),mult_inverse,100,64.0,65.0,0.45825756949558405,64.7
+Rust,,,,(no error margin ie pure equality),mult_inverse_pi,100,52.0,54.0,0.5385164807134504,53.1
 C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,77.0,77.0,0.0,77.0
 C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,100,77.0,77.0,0.0,77.0
 C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,100,100.0,100.0,0.0,100.0
@@ -22,11 +35,11 @@ C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,assoc
 C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,100.0,100.0,0.0,100.0
 C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,100,100.0,100.0,0.0,100.0
 Java,java.util.Random.nextFloat(),linux,,,associativity,100,100.0,100.0,0.0,100.0
-Java,Math.random(),linux,,,associativity,100,79.0,88.0,3.0,82.0
-Java,java.util.Random.nextDouble(),linux,,,associativity,100,81.0,87.0,2.0024984394500787,83.7
-Python,std,linux,,no seed,associativity,100,73.0,86.0,3.682390527904394,81.2
-Python,std,linux,,no seed,mult-inverse,100,52.0,81.0,7.550496672405068,64.3
-Python,std,linux,,no seed,mult-inverse-pi,100,48.0,61.0,4.318564576337836,54.5
+Java,Math.random(),linux,,,associativity,100,76.0,89.0,3.8275318418009276,82.5
+Java,java.util.Random.nextDouble(),linux,,,associativity,100,80.0,88.0,2.2891046284519194,83.6
+Python,std,linux,,no seed,associativity,100,77.0,89.0,3.944616584663204,83.2
+Python,std,linux,,no seed,mult-inverse,100,53.0,71.0,5.040833264451424,64.3
+Python,std,linux,,no seed,mult-inverse-pi,100,45.0,63.0,5.166236541235795,53.9
 Python,std,linux,,seed 42,associativity,100,80.0,80.0,0.0,80.0
 Python,std,linux,,seed 42,mult-inverse,100,70.0,70.0,0.0,70.0
 Python,std,linux,,seed 42,mult-inverse-pi,100,62.0,62.0,0.0,62.0

@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 import numpy as np
@@ -50,7 +51,7 @@ def analyze_results(repeat, cmd_str):
     return res
 
 
-########### variants 
+########### VARIANTS facilities to call implementations per language with some parameters
 
 
 def test_PY_variants(test_name, ngen, seed=None):
@@ -199,7 +200,111 @@ def test_RUST_variants(feature, ngen, error_margin=None):
     result_str = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result_str)
 
+
+# TODO: ngen is never used since LISP is not configurable right now!
+def test_LISP_variants(ngen):
+    variant_info = {
+        "Language": "LISP",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": "associativity"
+    }
+
+    cmd_args = ["sbcl", "--noinform", "--quit", "--load", "test_assoc.lisp"]
+    cmd_str = " ".join(cmd_args)
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+
+
+SEED = "42"
+
+def test_JavaScript_variants(check, with_gseed, ngen):
+    variant_info = {
+        "Language": "JavaScript",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": check
+    }
+  
+    if with_gseed:
+        variability_misc = "global seed"
+    else:
+        variability_misc = "no global seed"
+
+    variant_info["VariabilityMisc"] = variability_misc
+
+    npm_args = ["--prefix", "js/", "--silent", "--", "--equality-check", check, "--seed", SEED, "--number", str(ngen)]
+    if with_gseed:
+        npm_args.append("--with-gseed")
+
+    npm_args_str = " ".join(npm_args)
+    result_str = analyze_results(REPEAT, "npm start " + npm_args_str)
+    print_variant_results(variant_info, result_str)
+
+
+def test_BASH_variants(ngen, rel_eq):
+    variant_info = {
+        "Language": "Bash",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq
+    }
+      
+    cmd_args = ["sh", "testassoc.sh", "-n", str(ngen), "-e", rel_eq]
+    cmd_str = " ".join(cmd_args)
+    result_str = analyze_results(REPEAT, cmd_str)    
+    print_variant_results(variant_info, result_str)
+
+
+def test_Scala_variants(ngen, rel_eq):
+    variant_info = {
+        "Language": "Scala",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq
+    }
+    
+    cmd_str = 'sbt -warn -Dsbt.log.noformat=true "run --seed 42 --number {} --equality-check {}"'.format(ngen, rel_eq)
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+
+#################### VARIANTS execution 
+
 print_column_names()
+
+os.chdir("scala")
+test_Scala_variants(GNUMBER_GENERATIONS, "Associativity")
+test_Scala_variants(GNUMBER_GENERATIONS, "MultInv")
+test_Scala_variants(GNUMBER_GENERATIONS, "MultInvPi")
+os.chdir("..")  # change back to previous directory
+
+# TODO fix number of generations, Bash is quite slow
+test_BASH_variants(100, "associativity")
+test_BASH_variants(100, "mult_inverse")
+test_BASH_variants(100, "mult_inverse_pi")
+
+test_LISP_variants(42000) # TODO: play with number of generations (proportions), default value used right now
+
+test_JavaScript_variants("associativity", True, GNUMBER_GENERATIONS)
+test_JavaScript_variants("mult_inverse", True, GNUMBER_GENERATIONS)
+test_JavaScript_variants("mult_inverse_pi", True, GNUMBER_GENERATIONS)
+test_JavaScript_variants("associativity", False, GNUMBER_GENERATIONS)
+test_JavaScript_variants("mult_inverse", False, GNUMBER_GENERATIONS)
+test_JavaScript_variants("mult_inverse_pi", False, GNUMBER_GENERATIONS)
 
 # TODO: doubt: is run building?
 test_RUST_variants("associativity", GNUMBER_GENERATIONS, "0.000000000000001")
@@ -209,7 +314,7 @@ test_RUST_variants("associativity", GNUMBER_GENERATIONS)
 test_RUST_variants("mult_inverse", GNUMBER_GENERATIONS)
 test_RUST_variants("mult_inverse_pi", GNUMBER_GENERATIONS)
 
-test_C_variants(GNUMBER_GENERATIONS)
+test_C_variants(GNUMBER_GENERATIONS) # includes compilation and runtime variations
 
 
 compile_JAVA_variants() # prerequisites, applies to all variants

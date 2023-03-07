@@ -14,6 +14,7 @@ Here are the current implementations:
  * configurable JavaScript implementation with `seed` number (and actually the surprising `global seed`) and `equality-check` (associativity, multiplication inverse with and without Pi)
  * configurable Bash implementation with `equality-check` using `-e` (associativity, multiplication inverse with and without Pi)
  * configurable Swift implementation with `seed`, `--number`, and `--equality-check` 
+ * configurable Ocaml implementation with `seed` (optional), `--number`, and `--equality-check` 
 
  All implementations (but LISP until now) support parameterization of the number of random generations. 
  Executions are repeated 10 times by default (min, max, average, std reported).

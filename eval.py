@@ -6,7 +6,7 @@ GNUMBER_GENERATIONS=100
 REPEAT=10
 CSV_SEPARATOR=","
 
-COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "min", "max", "mean", "std"]
+COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "min", "max", "std", "mean"]
 
 def print_column_names():
     # Print column names with separator, except for last element
@@ -15,7 +15,6 @@ def print_column_names():
             print(col + CSV_SEPARATOR, end="")
         else:
             print(col)
-    print()
 
 def print_variant_results(variant_info, result):
     for k in result.keys():
@@ -31,13 +30,13 @@ def print_variant_results(variant_info, result):
                 print(f"{variant_info[col]}")
             else:
                 print(f"{CSV_SEPARATOR}")
-    print()
 
-def analyze_results(repeat, cmd_str):
+
+def analyze_results(repeat, cmd_str, env = {}):
     assert(repeat > 0)
     results = []
     for i in range(repeat):
-        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+        result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True, env=env)
         results.append(result.stdout.strip())
     # compute min, max, mean, std of results and store them in a dictionary
     # each element of results being a string ending with % 
@@ -78,7 +77,18 @@ def test_PY_variants(test_name, ngen, seed=None):
     print_variant_results(variant_info, result)
    
 
-# TODO JDK version
+def compile_JAVA_variants():
+    # execute javac -d . *.java
+    cmd_args = ["javac", "-d", ".", "*.java"]
+    cmd_str = " ".join(cmd_args)
+    result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Error while compiling Java variants")
+        print(result.stderr)
+        exit(1)
+    
+
+# TODO JDK version... GraalVM?
 def test_JAVA_variants(rand_strategy_name, ngen, test_cmd):
     variant_info = {
         "Language": "Java",
@@ -87,7 +97,7 @@ def test_JAVA_variants(rand_strategy_name, ngen, test_cmd):
         "Compiler": "",
         "VariabilityMisc": "",
         "NumberGenerations": GNUMBER_GENERATIONS,
-        "EqualityCheck": "",
+        "EqualityCheck": "associativity", # TODO associativity only at the moment
     }
 
     cmd_args = ["java", "assoc.TestAssoc", test_cmd, str(ngen)]
@@ -95,8 +105,83 @@ def test_JAVA_variants(rand_strategy_name, ngen, test_cmd):
     result = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result)
 
+def testCvariants(ngen):
+
+    variant_info = {
+        "Language": "C",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": "associativity", # TODO associativity only supported at the moment
+    }
+
+    COMPILERS = ["gcc", "clang"]
+    OPTIONS = ["-DCUSTOM=1", "", "-DWIN=1 -DCUSTOM=1", "-DWIN=1"]
+    FLAGS = ["-DOLD_MAIN_C=1", ""]
+
+    for compiler in COMPILERS:
+        for i in range(4):
+            for flag in FLAGS:
+                cmd_args = ["./testassoc", str(ngen)]
+
+                if compiler == "gcc" and "-DWIN=1" in OPTIONS[i]:
+                    cmd_args = ["wine", "./testassoc.exe", str(ngen)]
+
+                if compiler == "gcc" and "-DWIN=1" in OPTIONS[i]:
+                    compiler = "i686-w64-mingw32-gcc"
+                
+                if i == 0:
+                    library_name = "custom"
+                    os_name = "Linux"
+                elif i == 1:
+                    library_name = "(srand48+drand48)"
+                    os_name = "Linux"
+                elif i == 2:
+                    library_name = "custom"
+                    if "gcc" in compiler:
+                        os_name = "Windows (with wine and cross-compilation)"
+                    else: # clang
+                        os_name = "Linux (no cross-compilation with clang)"
+                else:
+                    library_name = "(srand+rand)"
+                    if "gcc" in compiler:
+                        os_name = "Windows (with wine and cross-compilation)"
+                    else: # clang
+                        os_name = "Linux (no cross-compilation with clang)"
+
+                variant_info["Library"] = library_name
+                variant_info["System"] = os_name
+                variant_info["Compiler"] = compiler
+                variant_info["VariabilityMisc"] = OPTIONS[i] + " " + flag
+                variant_info["NumberGenerations"] = ngen
+                
+                # compilation
+                compile_cmd_arg = [compiler, "-o", "testassoc", "testassoc.c", OPTIONS[i], flag]
+                clean_compile_cmd_args = [cmd_arg for cmd_arg in compile_cmd_arg if cmd_arg != ""]
+
+                compilation_result = subprocess.run(clean_compile_cmd_args, capture_output=True, text=True)
+                if compilation_result.returncode != 0:
+                    print("Error while compiling C variant")
+                    print(compilation_result.stderr)
+                    exit(1)         
+               
+                # execution 
+                exec_cmd_str = " ".join(cmd_args)
+                l_env = {}
+                if "wine" in cmd_args:
+                    l_env["WINEDEBUG"] = "-all" # not sure it's working
+                result_str = analyze_results(REPEAT, exec_cmd_str, l_env)
+
+                print_variant_results(variant_info, result_str)
+
 print_column_names()
 
+testCvariants(GNUMBER_GENERATIONS)
+
+
+compile_JAVA_variants() # prerequisites, applies to all variants
 test_JAVA_variants("java.util.Random.nextFloat()", GNUMBER_GENERATIONS, "basic")
 test_JAVA_variants("Math.random()", GNUMBER_GENERATIONS, "math")
 test_JAVA_variants("java.util.Random.nextDouble()", GNUMBER_GENERATIONS, "double")

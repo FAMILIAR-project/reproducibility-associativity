@@ -55,8 +55,7 @@ public class TestAssoc {
 		TestAssoc t = new TestAssoc();
 		int numTrials = 10000; // default number of trials
 
-		// java assoc.TestAssoc basic|math number eg java assoc.TestAssoc math 1000
-
+		// java assoc.TestAssoc basic|math|double number eg java assoc.TestAssoc math 1000
 		// TODO seed?
 
 		if (args.length > 0) {

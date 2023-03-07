@@ -299,7 +299,6 @@ def test_Swift_variants(ngen, rel_eq):
 
 
 def build_Swift_variants():
-    # execute javac -d . *.java
     cmd_args = ["swift", "build"]
     cmd_str = " ".join(cmd_args)
     result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
@@ -308,9 +307,42 @@ def build_Swift_variants():
         print(result.stderr)
         exit(1)
 
+
+
+def test_Ocaml_variants(ngen, rel_eq):
+    variant_info = {
+        "Language": "Ocaml",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "",
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq
+    }
+    
+    cmd_str = './testassoc --seed 123 --number {} --equality-check {}'.format(ngen, rel_eq) 
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+def build_Ocaml_variants():
+    cmd_args = ["ocamlopt", "-o", "testassoc", "testassoc.ml"]
+    cmd_str = " ".join(cmd_args)
+    result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Error while building Ocaml variants")
+        print(result.stderr)
+        exit(1)
+
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("ocaml")
+build_Ocaml_variants() # prerequiste
+test_Ocaml_variants(GNUMBER_GENERATIONS, "associativity")
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse")
+test_Ocaml_variants(GNUMBER_GENERATIONS, "mult-inverse-pi")
+os.chdir("..")  # change back to previous directory
 
 os.chdir("swift")
 build_Swift_variants() # prerequiste

@@ -11,3 +11,6 @@ scala/target/*
 scala/target/
 swift/.build/*
 swift/.build/
+ocaml/testassoc.o
+ocaml/testassoc.cmi
+ocaml/testassoc.cmx

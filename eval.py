@@ -385,7 +385,7 @@ def test_CPlusPlus_variants(ngen, rel_eq, seed=42):
 
 ########### Julia
 
-def test_Julia_variants(ngen, rel_eq, seed=42):
+def test_Julia_variants(ngen, rel_eq, strict_equality, seed=42):
     variant_info = {
         "Language": "Julia",
         "Library": "",
@@ -399,6 +399,11 @@ def test_Julia_variants(ngen, rel_eq, seed=42):
         cmd_str = 'julia testassoc.jl --number {} --equality-check {}'.format(ngen, rel_eq)
     else:
         cmd_str = 'julia testassoc.jl --number {} --equality-check {} --seed {}'.format(ngen, rel_eq, seed) 
+    if strict_equality:
+        cmd_str += " --strict-equality=true"
+        variant_info["VariabilityMisc"] += " strict-equality"
+    else:
+        variant_info["VariabilityMisc"] += " approximate equality of Julia lang"
     result_str = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result_str)
 
@@ -407,15 +412,17 @@ def test_Julia_variants(ngen, rel_eq, seed=42):
 
 print_column_names()
 
-os.chdir("juliana")
-test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", None)
-test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", None)
-test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", None)
+os.chdir("julia")
 
-test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", 42)
-test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", 42)
-test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", 42)
+seqs = [True, False]
+for seq in seqs:
+    test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", seq, None)
+    test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", seq, None)
+    test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", seq, None)
 
+    test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", seq, 42)
+    test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", seq, 42)
+    test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", seq, 42)
 
 os.chdir("..")  # change back to previous directory
 

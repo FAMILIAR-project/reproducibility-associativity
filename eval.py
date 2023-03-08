@@ -3,8 +3,8 @@ import subprocess
 
 import numpy as np
 
-GNUMBER_GENERATIONS=10
-REPEAT=10
+GNUMBER_GENERATIONS=100
+REPEAT=100
 CSV_SEPARATOR=","
 
 COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "Repeat", "min", "max", "std", "mean"]
@@ -278,8 +278,10 @@ def test_Scala_variants(ngen, rel_eq):
         "NumberGenerations": ngen,
         "EqualityCheck": rel_eq
     }
-    
-    cmd_str = 'sbt -warn -Dsbt.log.noformat=true "run --seed 42 --number {} --equality-check {}"'.format(ngen, rel_eq)
+    # sbt is very long to start, so we use --batch to avoid the interactive mode 
+    # other optimizations worth trying (but not implemented here) TODO
+    # cmd_str = 'sbt -warn -Dsbt.log.noformat=true "run --seed 42 --number {} --equality-check {}"'.format(ngen, rel_eq)
+    cmd_str = 'sbt --batch -warn -Dsbt.log.noformat=true "runMain Main --seed 42 --number {} --equality-check {}"'.format(ngen, rel_eq)
     result_str = analyze_results(REPEAT, cmd_str)
     print_variant_results(variant_info, result_str)
 
@@ -381,11 +383,41 @@ def test_CPlusPlus_variants(ngen, rel_eq, seed=42):
         print_variant_results(variant_info, result_str)
 
 
+########### Julia
+
+def test_Julia_variants(ngen, rel_eq, seed=42):
+    variant_info = {
+        "Language": "Julia",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "seed {}".format(seed),
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq, 
+        }
+    if seed is None:
+        cmd_str = 'julia testassoc.jl --number {} --equality-check {}'.format(ngen, rel_eq)
+    else:
+        cmd_str = 'julia testassoc.jl --number {} --equality-check {} --seed {}'.format(ngen, rel_eq, seed) 
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
 
 
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("juliana")
+test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", None)
+test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", None)
+test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", None)
+
+test_Julia_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", 42)
+test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV", 42)
+test_Julia_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", 42)
+
+
+os.chdir("..")  # change back to previous directory
 
 os.chdir("cpp")
 test_CPlusPlus_variants(GNUMBER_GENERATIONS, "associativity", None)
@@ -417,6 +449,8 @@ test_Swift_variants(GNUMBER_GENERATIONS, "mult-inverse-pi")
 os.chdir("..")  # change back to previous directory
 
 os.chdir("scala")
+# TODO: build once, run multiple times
+# TODO: scala-cli or other Scala environment (eg ScalaJS)
 test_Scala_variants(GNUMBER_GENERATIONS, "Associativity")
 test_Scala_variants(GNUMBER_GENERATIONS, "MultInv")
 test_Scala_variants(GNUMBER_GENERATIONS, "MultInvPi")

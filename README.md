@@ -15,6 +15,7 @@ Here are the current implementations:
  * configurable Bash implementation with `equality-check` using `-e` (associativity, multiplication inverse with and without Pi)
  * configurable Swift implementation with `seed`, `--number`, and `--equality-check` 
  * configurable Ocaml implementation with `seed` (optional), `--number`, and `--equality-check` 
+ * configurable Julia implementation with `seed` (optional), `--number`, `--equality-check`, and `stric-equality` 
 
  All implementations (but LISP until now) support parameterization of the number of random generations. 
  Executions are repeated 10 times by default (min, max, average, std reported).
@@ -46,7 +47,9 @@ https://stackoverflow.com/questions/11006798/how-can-i-obtain-a-negative-random-
 https://simplecxx.github.io/2018/11/03/seed-mt19937.html (about random seed)
 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=87951 (about enum, switch, return types... clang vs g++)
 
+### Julia
 
+https://docs.julialang.org/en/v1/base/math/#Mathematical-Functions and the famous `≈` operator (`isapprox`)
 
 ### C
 

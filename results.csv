@@ -1,66 +1,78 @@
 Language,Library,System,Compiler,VariabilityMisc,EqualityCheck,NumberGenerations,Repeat,min,max,std,mean
-C++,,,g++,seed None,associativity,100,100,63.0,84.0,3.9142176740697496,74.83
-C++,,,clang++,seed None,associativity,100,100,63.0,84.0,4.279018579066934,74.5
-C++,,,g++,seed None,mult-inverse,100,100,57.0,75.0,4.041423016710822,65.13
-C++,,,clang++,seed None,mult-inverse,100,100,55.0,77.0,4.624662149822407,65.15
-C++,,,g++,seed None,mult-inverse-pi,100,100,42.0,69.0,5.081574559130271,53.24
-C++,,,clang++,seed None,mult-inverse-pi,100,100,43.0,68.0,4.812733111237315,53.24
-C++,,,g++,seed 42,associativity,100,100,76.0,76.0,0.0,76.0
-C++,,,clang++,seed 42,associativity,100,100,76.0,76.0,0.0,76.0
-C++,,,g++,seed 42,mult-inverse,100,100,71.0,71.0,0.0,71.0
-C++,,,clang++,seed 42,mult-inverse,100,100,71.0,71.0,0.0,71.0
-C++,,,g++,seed 42,mult-inverse-pi,100,100,59.0,59.0,0.0,59.0
-C++,,,clang++,seed 42,mult-inverse-pi,100,100,59.0,59.0,0.0,59.0
-Ocaml,,,,seed 42,associativity,100,100,72.0,72.0,0.0,72.0
-Ocaml,,,,seed 42,mult-inverse,100,100,76.0,76.0,0.0,76.0
-Ocaml,,,,seed 42,mult-inverse-pi,100,100,54.0,54.0,0.0,54.0
-Ocaml,,,,seed None,associativity,100,100,64.0,86.0,4.51171807629865,75.38
-Ocaml,,,,seed None,mult-inverse,100,100,53.0,76.0,4.918322884886677,65.01
-Ocaml,,,,seed None,mult-inverse-pi,100,100,40.0,67.0,4.5264887053874325,53.97
-Swift,,,,,associativity,100,100,67.0,83.0,4.076812480357662,74.14
-Swift,,,,,mult-inverse,100,100,52.0,78.0,4.916696045109967,65.81
-Swift,,,,,mult-inverse-pi,100,100,44.0,64.0,4.375054285377497,54.33
-Scala,,,,,Associativity,100,100,77.0,77.0,0.0,77.0
-Scala,,,,,MultInv,100,100,64.0,64.0,0.0,64.0
-Scala,,,,,MultInvPi,100,100,54.0,54.0,0.0,54.0
-Bash,,,,,associativity,100,100,100.0,100.0,0.0,100.0
-Bash,,,,,mult_inverse,100,100,100.0,100.0,0.0,100.0
-Bash,,,,,mult_inverse_pi,100,100,29.0,52.0,4.998909881164092,40.03
-LISP,,,,,associativity,42000,100,100.0,100.0,0.0,100.0
-JavaScript,,,,global seed,associativity,100,100,68.0,68.0,0.0,68.0
-JavaScript,,,,global seed,mult_inverse,100,100,60.0,60.0,0.0,60.0
-JavaScript,,,,global seed,mult_inverse_pi,100,100,59.0,59.0,0.0,59.0
-JavaScript,,,,no global seed,associativity,100,100,100.0,100.0,0.0,100.0
-JavaScript,,,,no global seed,mult_inverse,100,100,49.0,76.0,4.877745380808637,66.26
-JavaScript,,,,no global seed,mult_inverse_pi,100,100,41.0,64.0,4.816886961513629,53.76
-Rust,,,,--error_margin 0.000000000000001,associativity,100,100,53.0,56.0,0.5979966555090422,54.68
-Rust,,,,--error_margin 0.000000000000001,mult_inverse,100,100,97.0,98.0,0.39230090491866065,97.19
-Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,100,100,96.0,97.0,0.48,96.64
-Rust,,,,(no error margin ie pure equality),associativity,100,100,74.0,76.0,0.47958315233127197,74.7
-Rust,,,,(no error margin ie pure equality),mult_inverse,100,100,63.0,66.0,0.5567764362830022,64.7
-Rust,,,,(no error margin ie pure equality),mult_inverse_pi,100,100,52.0,55.0,0.51720402163943,53.15
-C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,100,77.0,77.0,0.0,77.0
-C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,100,100,77.0,77.0,0.0,77.0
-C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand48+drand48),Linux,gcc, ,associativity,100,100,100.0,100.0,0.0,100.0
-C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 ,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 ,associativity,100,100,100.0,100.0,0.0,100.0
-C,custom,Linux,clang,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,100,77.0,77.0,0.0,77.0
-C,custom,Linux,clang,-DCUSTOM=1 ,associativity,100,100,77.0,77.0,0.0,77.0
-C,(srand48+drand48),Linux,clang, -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand48+drand48),Linux,clang, ,associativity,100,100,100.0,100.0,0.0,100.0
-C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,100,100.0,100.0,0.0,100.0
-C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,100,100,100.0,100.0,0.0,100.0
-Java,java.util.Random.nextFloat(),linux,,,associativity,100,100,100.0,100.0,0.0,100.0
-Java,Math.random(),linux,,,associativity,100,100,71.0,92.0,4.226334108893901,82.59
-Java,java.util.Random.nextDouble(),linux,,,associativity,100,100,72.0,94.0,3.839518198941112,82.09
-Python,std,linux,,no seed,associativity,100,100,71.0,90.0,3.6463132065142174,82.38
-Python,std,linux,,no seed,mult-inverse,100,100,55.0,75.0,4.783555163265079,65.24
-Python,std,linux,,no seed,mult-inverse-pi,100,100,41.0,68.0,5.10023528869012,54.26
-Python,std,linux,,seed 42,associativity,100,100,80.0,80.0,0.0,80.0
-Python,std,linux,,seed 42,mult-inverse,100,100,70.0,70.0,0.0,70.0
-Python,std,linux,,seed 42,mult-inverse-pi,100,100,62.0,62.0,0.0,62.0
+Julia,,,,seed None strict-equality,ASSOCIATIVITY,100,10,79.0,87.0,2.5,82.5
+Julia,,,,seed None strict-equality,MULT_INV,100,10,56.0,72.0,5.459853477887479,64.7
+Julia,,,,seed None strict-equality,MULT_INV_PI,100,10,47.0,61.0,5.059644256269407,53.0
+Julia,,,,seed 42 strict-equality,ASSOCIATIVITY,100,10,89.0,89.0,0.0,89.0
+Julia,,,,seed 42 strict-equality,MULT_INV,100,10,73.0,73.0,0.0,73.0
+Julia,,,,seed 42 strict-equality,MULT_INV_PI,100,10,55.0,55.0,0.0,55.0
+Julia,,,,seed None approximate equality of Julia lang,ASSOCIATIVITY,100,10,100.0,100.0,0.0,100.0
+Julia,,,,seed None approximate equality of Julia lang,MULT_INV,100,10,100.0,100.0,0.0,100.0
+Julia,,,,seed None approximate equality of Julia lang,MULT_INV_PI,100,10,100.0,100.0,0.0,100.0
+Julia,,,,seed 42 approximate equality of Julia lang,ASSOCIATIVITY,100,10,100.0,100.0,0.0,100.0
+Julia,,,,seed 42 approximate equality of Julia lang,MULT_INV,100,10,100.0,100.0,0.0,100.0
+Julia,,,,seed 42 approximate equality of Julia lang,MULT_INV_PI,100,10,100.0,100.0,0.0,100.0
+C++,,,g++,seed None,associativity,100,10,66.0,82.0,4.272001872658765,74.5
+C++,,,clang++,seed None,associativity,100,10,68.0,82.0,3.6386810797320503,76.6
+C++,,,g++,seed None,mult-inverse,100,10,59.0,74.0,3.9560080889704965,66.5
+C++,,,clang++,seed None,mult-inverse,100,10,56.0,80.0,6.419501538281613,66.7
+C++,,,g++,seed None,mult-inverse-pi,100,10,45.0,58.0,3.6660605559646715,51.4
+C++,,,clang++,seed None,mult-inverse-pi,100,10,46.0,61.0,4.317406628984581,54.4
+C++,,,g++,seed 42,associativity,100,10,76.0,76.0,0.0,76.0
+C++,,,clang++,seed 42,associativity,100,10,76.0,76.0,0.0,76.0
+C++,,,g++,seed 42,mult-inverse,100,10,71.0,71.0,0.0,71.0
+C++,,,clang++,seed 42,mult-inverse,100,10,71.0,71.0,0.0,71.0
+C++,,,g++,seed 42,mult-inverse-pi,100,10,59.0,59.0,0.0,59.0
+C++,,,clang++,seed 42,mult-inverse-pi,100,10,59.0,59.0,0.0,59.0
+Ocaml,,,,seed 42,associativity,100,10,72.0,72.0,0.0,72.0
+Ocaml,,,,seed 42,mult-inverse,100,10,76.0,76.0,0.0,76.0
+Ocaml,,,,seed 42,mult-inverse-pi,100,10,54.0,54.0,0.0,54.0
+Ocaml,,,,seed None,associativity,100,10,65.0,80.0,4.5265881191025095,73.1
+Ocaml,,,,seed None,mult-inverse,100,10,58.0,72.0,4.838388161361178,66.3
+Ocaml,,,,seed None,mult-inverse-pi,100,10,49.0,63.0,3.954743986657038,55.4
+Swift,,,,,associativity,100,10,73.0,79.0,2.4979991993593593,75.4
+Swift,,,,,mult-inverse,100,10,55.0,74.0,5.818075283115543,59.5
+Swift,,,,,mult-inverse-pi,100,10,52.0,62.0,3.2388269481403293,59.1
+Scala,,,,,Associativity,100,10,77.0,77.0,0.0,77.0
+Scala,,,,,MultInv,100,10,64.0,64.0,0.0,64.0
+Scala,,,,,MultInvPi,100,10,54.0,54.0,0.0,54.0
+Bash,,,,,associativity,100,10,100.0,100.0,0.0,100.0
+Bash,,,,,mult_inverse,100,10,100.0,100.0,0.0,100.0
+Bash,,,,,mult_inverse_pi,100,10,36.0,45.0,3.0919249667480617,40.2
+LISP,,,,,associativity,42000,10,100.0,100.0,0.0,100.0
+JavaScript,,,,global seed,associativity,100,10,68.0,68.0,0.0,68.0
+JavaScript,,,,global seed,mult_inverse,100,10,60.0,60.0,0.0,60.0
+JavaScript,,,,global seed,mult_inverse_pi,100,10,59.0,59.0,0.0,59.0
+JavaScript,,,,no global seed,associativity,100,10,100.0,100.0,0.0,100.0
+JavaScript,,,,no global seed,mult_inverse,100,10,53.0,74.0,6.168468205316454,65.5
+JavaScript,,,,no global seed,mult_inverse_pi,100,10,44.0,57.0,3.6728735344413916,53.1
+Rust,,,,--error_margin 0.000000000000001,associativity,100,10,53.0,56.0,0.7810249675906654,54.7
+Rust,,,,--error_margin 0.000000000000001,mult_inverse,100,10,97.0,98.0,0.4898979485566356,97.4
+Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,100,10,96.0,97.0,0.45825756949558394,96.7
+Rust,,,,(no error margin ie pure equality),associativity,100,10,74.0,76.0,0.6,74.8
+Rust,,,,(no error margin ie pure equality),mult_inverse,100,10,64.0,65.0,0.45825756949558394,64.7
+Rust,,,,(no error margin ie pure equality),mult_inverse_pi,100,10,52.0,54.0,0.6324555320336759,53.0
+C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,10,77.0,77.0,0.0,77.0
+C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,100,10,77.0,77.0,0.0,77.0
+C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand48+drand48),Linux,gcc, ,associativity,100,10,100.0,100.0,0.0,100.0
+C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 ,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 ,associativity,100,10,100.0,100.0,0.0,100.0
+C,custom,Linux,clang,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,10,77.0,77.0,0.0,77.0
+C,custom,Linux,clang,-DCUSTOM=1 ,associativity,100,10,77.0,77.0,0.0,77.0
+C,(srand48+drand48),Linux,clang, -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand48+drand48),Linux,clang, ,associativity,100,10,100.0,100.0,0.0,100.0
+C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,100,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,100,10,100.0,100.0,0.0,100.0
+Java,java.util.Random.nextFloat(),linux,,,associativity,100,10,100.0,100.0,0.0,100.0
+Java,Math.random(),linux,,,associativity,100,10,79.0,88.0,3.047950130825634,84.1
+Java,java.util.Random.nextDouble(),linux,,,associativity,100,10,79.0,87.0,2.6999999999999997,82.9
+Python,std,linux,,no seed,associativity,100,10,78.0,89.0,3.6180105030251086,84.1
+Python,std,linux,,no seed,mult-inverse,100,10,62.0,68.0,1.9390719429665315,64.2
+Python,std,linux,,no seed,mult-inverse-pi,100,10,48.0,58.0,3.3241540277189325,53.5
+Python,std,linux,,seed 42,associativity,100,10,80.0,80.0,0.0,80.0
+Python,std,linux,,seed 42,mult-inverse,100,10,70.0,70.0,0.0,70.0
+Python,std,linux,,seed 42,mult-inverse-pi,100,10,62.0,62.0,0.0,62.0

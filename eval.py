@@ -4,7 +4,7 @@ import subprocess
 import numpy as np
 
 GNUMBER_GENERATIONS=100
-REPEAT=100
+REPEAT=10
 CSV_SEPARATOR=","
 
 COLUMN_NAMES = ["Language", "Library", "System", "Compiler", "VariabilityMisc", "EqualityCheck", "NumberGenerations", "Repeat", "min", "max", "std", "mean"]
@@ -396,9 +396,9 @@ def test_Julia_variants(ngen, rel_eq, strict_equality, seed=42):
         "EqualityCheck": rel_eq, 
         }
     if seed is None:
-        cmd_str = 'julia testassoc.jl --number {} --equality-check {}'.format(ngen, rel_eq)
+        cmd_str = 'julia src/testassoc.jl --number={} --equality-check={}'.format(ngen, rel_eq)
     else:
-        cmd_str = 'julia testassoc.jl --number {} --equality-check {} --seed {}'.format(ngen, rel_eq, seed) 
+        cmd_str = 'julia src/testassoc.jl --number={} --equality-check={} --seed={}'.format(ngen, rel_eq, seed) 
     if strict_equality:
         cmd_str += " --strict-equality=true"
         variant_info["VariabilityMisc"] += " strict-equality"

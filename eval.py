@@ -409,7 +409,7 @@ def test_Julia_variants(ngen, rel_eq, strict_equality, seed=42):
 
 
 ########### R
-def test_R_variants(ngen, rel_eq, strict_equality, seed=42):
+def test_R_variants(ngen, rel_eq, seed=42):
     variant_info = {
         "Language": "R",
         "Library": "",

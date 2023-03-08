@@ -17,3 +17,4 @@ ocaml/testassoc.cmx
 ocaml/testassoc.o
 ocaml/testassoc.cmi
 ocaml/testassoc
+cpp/testassoc

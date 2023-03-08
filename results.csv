@@ -1,54 +1,66 @@
 Language,Library,System,Compiler,VariabilityMisc,EqualityCheck,NumberGenerations,Repeat,min,max,std,mean
-Ocaml,,,,seed 42,associativity,1000,10,72.3,72.3,1.4210854715202004e-14,72.29999999999998
-Ocaml,,,,seed 42,mult-inverse,1000,10,64.8,64.8,1.4210854715202004e-14,64.79999999999998
-Ocaml,,,,seed 42,mult-inverse-pi,1000,10,51.5,51.5,0.0,51.5
-Ocaml,,,,seed None,associativity,1000,10,73.7,76.2,0.8651589449343987,74.95000000000002
-Ocaml,,,,seed None,mult-inverse,1000,10,64.3,68.1,1.12111551590369,65.61
-Ocaml,,,,seed None,mult-inverse-pi,1000,10,51.7,55.9,1.3373481222179955,53.55
-Swift,,,,,associativity,1000,10,73.0,75.0,0.8717797887081347,73.8
-Swift,,,,,mult-inverse,1000,10,64.0,68.0,1.6613247725836147,65.8
-Swift,,,,,mult-inverse-pi,1000,10,50.0,55.0,1.8973665961010275,52.0
-Scala,,,,,Associativity,1000,10,79.9,79.9,0.0,79.9
-Scala,,,,,MultInv,1000,10,63.3,63.3,7.105427357601002e-15,63.29999999999999
-Scala,,,,,MultInvPi,1000,10,55.0,55.0,0.0,55.0
+C++,,,g++,seed None,associativity,10,10,60.0,90.0,10.0,80.0
+C++,,,clang++,seed None,associativity,10,10,40.0,90.0,15.0,65.0
+C++,,,g++,seed None,mult-inverse,10,10,60.0,90.0,8.0,74.0
+C++,,,clang++,seed None,mult-inverse,10,10,40.0,70.0,11.135528725660043,54.0
+C++,,,g++,seed None,mult-inverse-pi,10,10,20.0,80.0,18.33030277982336,58.0
+C++,,,clang++,seed None,mult-inverse-pi,10,10,20.0,70.0,14.45683229480096,49.0
+C++,,,g++,seed 42,associativity,10,10,90.0,90.0,0.0,90.0
+C++,,,clang++,seed 42,associativity,10,10,90.0,90.0,0.0,90.0
+C++,,,g++,seed 42,mult-inverse,10,10,100.0,100.0,0.0,100.0
+C++,,,clang++,seed 42,mult-inverse,10,10,100.0,100.0,0.0,100.0
+C++,,,g++,seed 42,mult-inverse-pi,10,10,70.0,70.0,0.0,70.0
+C++,,,clang++,seed 42,mult-inverse-pi,10,10,70.0,70.0,0.0,70.0
+Ocaml,,,,seed 42,associativity,10,10,100.0,100.0,0.0,100.0
+Ocaml,,,,seed 42,mult-inverse,10,10,70.0,70.0,0.0,70.0
+Ocaml,,,,seed 42,mult-inverse-pi,10,10,40.0,40.0,0.0,40.0
+Ocaml,,,,seed None,associativity,10,10,70.0,80.0,3.0,79.0
+Ocaml,,,,seed None,mult-inverse,10,10,50.0,80.0,10.04987562112089,67.0
+Ocaml,,,,seed None,mult-inverse-pi,10,10,40.0,70.0,11.874342087037917,57.0
+Swift,,,,,associativity,10,10,60.0,80.0,8.306623862918075,71.0
+Swift,,,,,mult-inverse,10,10,50.0,70.0,7.0,59.0
+Swift,,,,,mult-inverse-pi,10,10,50.0,80.0,10.198039027185569,64.0
+Scala,,,,,Associativity,10,10,80.0,80.0,0.0,80.0
+Scala,,,,,MultInv,10,10,80.0,80.0,0.0,80.0
+Scala,,,,,MultInvPi,10,10,50.0,50.0,0.0,50.0
 Bash,,,,,associativity,100,10,100.0,100.0,0.0,100.0
 Bash,,,,,mult_inverse,100,10,100.0,100.0,0.0,100.0
-Bash,,,,,mult_inverse_pi,100,10,34.0,43.0,3.0919249667480617,39.2
+Bash,,,,,mult_inverse_pi,100,10,30.0,45.0,4.459820624195551,36.9
 LISP,,,,,associativity,42000,10,100.0,100.0,0.0,100.0
-JavaScript,,,,global seed,associativity,1000,10,74.5,74.5,0.0,74.5
-JavaScript,,,,global seed,mult_inverse,1000,10,65.2,65.2,1.4210854715202004e-14,65.20000000000002
-JavaScript,,,,global seed,mult_inverse_pi,1000,10,56.4,56.4,0.0,56.4
-JavaScript,,,,no global seed,associativity,1000,10,100.0,100.0,0.0,100.0
-JavaScript,,,,no global seed,mult_inverse,1000,10,61.6,66.3,1.2249081598226044,64.83999999999999
-JavaScript,,,,no global seed,mult_inverse_pi,1000,10,51.9,55.8,1.0866922287382013,53.79
-Rust,,,,--error_margin 0.000000000000001,associativity,1000,10,54.0,55.0,0.45825756949558394,54.7
-Rust,,,,--error_margin 0.000000000000001,mult_inverse,1000,10,97.0,98.0,0.30000000000000004,97.1
-Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,1000,10,96.0,97.0,0.45825756949558394,96.3
-Rust,,,,(no error margin ie pure equality),associativity,1000,10,74.0,75.0,0.4898979485566356,74.6
-Rust,,,,(no error margin ie pure equality),mult_inverse,1000,10,64.0,65.0,0.4898979485566356,64.6
-Rust,,,,(no error margin ie pure equality),mult_inverse_pi,1000,10,52.0,54.0,0.7000000000000001,53.1
-C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,1000,10,73.900002,73.900002,0.0,73.900002
-C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,1000,10,73.900002,73.900002,0.0,73.900002
-C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand48+drand48),Linux,gcc, ,associativity,1000,10,100.0,100.0,0.0,100.0
-C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 ,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 ,associativity,1000,10,100.0,100.0,0.0,100.0
-C,custom,Linux,clang,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,1000,10,73.900002,73.900002,0.0,73.900002
-C,custom,Linux,clang,-DCUSTOM=1 ,associativity,1000,10,73.900002,73.900002,0.0,73.900002
-C,(srand48+drand48),Linux,clang, -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand48+drand48),Linux,clang, ,associativity,1000,10,100.0,100.0,0.0,100.0
-C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,1000,10,100.0,100.0,0.0,100.0
-C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,1000,10,100.0,100.0,0.0,100.0
-Java,java.util.Random.nextFloat(),linux,,,associativity,1000,10,100.0,100.0,0.0,100.0
-Java,Math.random(),linux,,,associativity,1000,10,80.7,85.0,1.3408952233489384,83.2
-Java,java.util.Random.nextDouble(),linux,,,associativity,1000,10,81.1,85.7,1.2804686642007297,82.72
-Python,std,linux,,no seed,associativity,1000,10,80.3,83.6,1.0438390680559901,81.91999999999999
-Python,std,linux,,no seed,mult-inverse,1000,10,62.5,66.3,1.4038874598770372,64.41
-Python,std,linux,,no seed,mult-inverse-pi,1000,10,51.0,55.1,1.275303885354389,53.06
-Python,std,linux,,seed 42,associativity,1000,10,82.0,82.0,0.0,82.0
-Python,std,linux,,seed 42,mult-inverse,1000,10,65.3,65.3,1.4210854715202004e-14,65.29999999999998
-Python,std,linux,,seed 42,mult-inverse-pi,1000,10,54.2,54.2,0.0,54.2
+JavaScript,,,,global seed,associativity,10,10,50.0,50.0,0.0,50.0
+JavaScript,,,,global seed,mult_inverse,10,10,50.0,50.0,0.0,50.0
+JavaScript,,,,global seed,mult_inverse_pi,10,10,60.0,60.0,0.0,60.0
+JavaScript,,,,no global seed,associativity,10,10,100.0,100.0,0.0,100.0
+JavaScript,,,,no global seed,mult_inverse,10,10,30.0,80.0,14.866068747318506,63.0
+JavaScript,,,,no global seed,mult_inverse_pi,10,10,30.0,70.0,12.84523257866513,55.0
+Rust,,,,--error_margin 0.000000000000001,associativity,10,10,54.0,55.0,0.45825756949558394,54.7
+Rust,,,,--error_margin 0.000000000000001,mult_inverse,10,10,97.0,98.0,0.5,97.5
+Rust,,,,--error_margin 0.000000000000001,mult_inverse_pi,10,10,96.0,97.0,0.45825756949558394,96.7
+Rust,,,,(no error margin ie pure equality),associativity,10,10,74.0,76.0,0.6,74.8
+Rust,,,,(no error margin ie pure equality),mult_inverse,10,10,64.0,65.0,0.4898979485566356,64.6
+Rust,,,,(no error margin ie pure equality),mult_inverse_pi,10,10,53.0,54.0,0.4,53.2
+C,custom,Linux,gcc,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,10,10,70.0,70.0,0.0,70.0
+C,custom,Linux,gcc,-DCUSTOM=1 ,associativity,10,10,70.0,70.0,0.0,70.0
+C,(srand48+drand48),Linux,gcc, -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand48+drand48),Linux,gcc, ,associativity,10,10,100.0,100.0,0.0,100.0
+C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,custom,Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DCUSTOM=1 ,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Windows (with wine and cross-compilation),i686-w64-mingw32-gcc,-DWIN=1 ,associativity,10,10,100.0,100.0,0.0,100.0
+C,custom,Linux,clang,-DCUSTOM=1 -DOLD_MAIN_C=1,associativity,10,10,70.0,70.0,0.0,70.0
+C,custom,Linux,clang,-DCUSTOM=1 ,associativity,10,10,70.0,70.0,0.0,70.0
+C,(srand48+drand48),Linux,clang, -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand48+drand48),Linux,clang, ,associativity,10,10,100.0,100.0,0.0,100.0
+C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,custom,Linux (no cross-compilation with clang),clang,-DWIN=1 -DCUSTOM=1 ,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 -DOLD_MAIN_C=1,associativity,10,10,100.0,100.0,0.0,100.0
+C,(srand+rand),Linux (no cross-compilation with clang),clang,-DWIN=1 ,associativity,10,10,100.0,100.0,0.0,100.0
+Java,java.util.Random.nextFloat(),linux,,,associativity,10,10,100.0,100.0,0.0,100.0
+Java,Math.random(),linux,,,associativity,10,10,80.0,100.0,6.324555320336759,90.0
+Java,java.util.Random.nextDouble(),linux,,,associativity,10,10,70.0,100.0,8.717797887081348,82.0
+Python,std,linux,,no seed,associativity,10,10,60.0,90.0,9.433981132056603,81.0
+Python,std,linux,,no seed,mult-inverse,10,10,40.0,80.0,12.489995996796797,62.0
+Python,std,linux,,no seed,mult-inverse-pi,10,10,30.0,90.0,19.493588689617926,60.0
+Python,std,linux,,seed 42,associativity,10,10,90.0,90.0,0.0,90.0
+Python,std,linux,,seed 42,mult-inverse,10,10,90.0,90.0,0.0,90.0
+Python,std,linux,,seed 42,mult-inverse-pi,10,10,80.0,80.0,0.0,80.0

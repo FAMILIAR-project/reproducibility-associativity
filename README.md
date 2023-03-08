@@ -41,6 +41,13 @@ Clippy lints https://rust-lang.github.io/rust-clippy/master/index.html#float_cmp
 https://gist.github.com/garandria/0e965d7a4efff89ed245d71f0c3785a3
 https://stackoverflow.com/questions/11006798/how-can-i-obtain-a-negative-random-integer-in-common-lisp 
 
+### C++
+
+https://simplecxx.github.io/2018/11/03/seed-mt19937.html (about random seed)
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=87951 (about enum, switch, return types... clang vs g++)
+
+
+
 ### C
 
 To cross-compile for Windows from Linux with `i686-w64-mingw32-gcc`, specific packages are needed (e.g. on Fedora `mingw64-gcc.x86_64`). 

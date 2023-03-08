@@ -3,7 +3,7 @@ import subprocess
 
 import numpy as np
 
-GNUMBER_GENERATIONS=1000
+GNUMBER_GENERATIONS=10
 REPEAT=10
 CSV_SEPARATOR=","
 
@@ -309,7 +309,7 @@ def build_Swift_variants():
         print(result.stderr)
         exit(1)
 
-
+############## Ocaml
 
 def test_Ocaml_variants(ngen, rel_eq, seed=42):
     variant_info = {
@@ -338,9 +338,65 @@ def build_Ocaml_variants():
         print(result.stderr)
         exit(1)
 
+
+################### C++
+
+def test_CPlusPlus_variants(ngen, rel_eq, seed=42):
+
+    variant_info = {
+            "Language": "C++",
+            "Library": "",
+            "System": "",
+            "Compiler": "",
+            "VariabilityMisc": "seed {}".format(seed),
+            "NumberGenerations": ngen,
+            "EqualityCheck": rel_eq, 
+        }
+
+    COMPILERS = ["g++", "clang++"]       
+
+    for compiler in COMPILERS:       
+        
+        variant_info["Compiler"] = compiler
+                
+        # compilation
+        # -fstrict-enums can be used for gcc but does not change
+        # incredible discussion here: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=87951
+        compile_cmd_arg = [compiler, "-std=c++11", "-o", "testassoc", "testassoc.cpp"]
+        
+        compilation_result = subprocess.run(compile_cmd_arg, capture_output=True, text=True)
+        if compilation_result.returncode != 0:
+            print("Error while compiling C++ variant")
+            print(compilation_result.stderr)
+            exit(1)         
+    
+        # execution 
+        if seed is None:
+            cmd_args = ["./testassoc", "--number", str(ngen), "--equality-check", rel_eq]
+        else:
+            cmd_args = ["./testassoc", "--number", str(ngen), "--equality-check", rel_eq, "--seed", str(seed)]
+        exec_cmd_str = " ".join(cmd_args)               
+        result_str = analyze_results(REPEAT, exec_cmd_str) # TODO: wine environement debug
+
+        print_variant_results(variant_info, result_str)
+
+
+
+
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("cpp")
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "associativity", None)
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "mult-inverse", None)
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", None)
+
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "associativity", 42)
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "mult-inverse", 42)
+test_CPlusPlus_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", 42)
+
+os.chdir("..")  # change back to previous directory
 
 os.chdir("ocaml")
 build_Ocaml_variants() # prerequiste

@@ -4,24 +4,36 @@ using Statistics
 
 @enum EqualityCheck ASSOCIATIVITY=1 MULT_INV=2 MULT_INV_PI=3
 
-function equality_test(equality_check::EqualityCheck, x, y, z)::Bool
+function equality_test(equality_check::EqualityCheck, x, y, z, strict_equality::Bool)::Bool
     if equality_check == ASSOCIATIVITY
-        return x + (y + z) ≈ (x + y) + z # variation point: strict equality
+        if strict_equality
+            return x + (y + z) == (x + y) + z
+        else
+            return x + (y + z) ≈ (x + y) + z # variation point: strict equality
+        end
     elseif equality_check == MULT_INV
-        return (x * z) / (y * z) ≈ x / y
+        if strict_equality
+            return (x * z) / (y * z) == x / y
+        else
+            return (x * z) / (y * z) ≈ x / y
+        end
     elseif equality_check == MULT_INV_PI
-        return (x * z * π) / (y * z * π) ≈ x / y
+        if strict_equality
+            return (x * z * π) / (y * z * π) == x / y
+        else
+            return (x * z * π) / (y * z * π) ≈ x / y
+        end
     end
 end
 
-function proportion(number::Int, seed_val::Union{Int,Nothing}, equality_check::EqualityCheck)::Float64
+function proportion(number::Int, seed_val::Union{Int,Nothing}, equality_check::EqualityCheck, strict_equality::Bool)::Float64
     isnothing(seed_val) ? Random.seed!() : Random.seed!(seed_val)
     ok = 0
     for i in 1:number
         x = rand()
         y = rand()
         z = rand()
-        ok += equality_test(equality_check, x, y, z)
+        ok += equality_test(equality_check, x, y, z, strict_equality)
     end
     return ok*100/number
 end
@@ -57,32 +69,29 @@ function main()
             arg_type = Int
             default = 10000
             help = "Number of tests."
-        "--echeck"
+        "--equality-check"
             arg_type = String
             required = true
             # choices = Enum.values(EqualityCheck) # not working
             help = "Type of equality check." # TODO: Choices are: " * join(Enum.values(EqualityCheck), ",")
+        "--strict-equality"
+            arg_type = Bool
+            default = false
+            help = "Strict equality. Default: ≈ (approximate)"
     end
     
 
-    args = parse_args(parser)
-    println("Parsed args:")
-    for (key,val) in args
-        println("  $key  =>  $(repr(val))")
-    end
+    args = parse_args(parser)   
 
-    # convert args.equality_check to EqualityCheck
-    # equality_check = strtoenum(EqualityCheck, args.echeck)
-
-    
-    en_found = strtoenum(EqualityCheck, args["echeck"])
+    # convert args.equality_check to EqualityCheck  
+    en_found = strtoenum(EqualityCheck, args["equality-check"])
     if en_found == -1        
-        println("Error: Invalid equality check type: $(args["echeck"])")
+        println("Error: Invalid equality check type: $(args["equality-check"])")
         return
     end  
 
    
-    println(string(proportion(args["number"], args["seed"], en_found)) * "%")
+    println(string(proportion(args["number"], args["seed"], en_found, args["strict-equality"])) * "%")
 end
 
 main()

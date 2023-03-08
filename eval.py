@@ -408,9 +408,42 @@ def test_Julia_variants(ngen, rel_eq, strict_equality, seed=42):
     print_variant_results(variant_info, result_str)
 
 
+########### R
+def test_R_variants(ngen, rel_eq, strict_equality, seed=42):
+    variant_info = {
+        "Language": "R",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "seed {}".format(seed),
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq, 
+        }
+    if seed is None:
+        cmd_str = 'Rscript testassoc.R --number={} --eq_check={}'.format(ngen, rel_eq)
+    else:
+        cmd_str = 'Rscript testassoc.R --number={} --eq_check={} --seed={}'.format(ngen, rel_eq, seed) 
+    
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+
 #################### VARIANTS execution 
 
 print_column_names()
+
+
+os.chdir("R")
+
+test_R_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", None)
+test_R_variants(GNUMBER_GENERATIONS, "MULT_INV", None)
+test_R_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", None)
+
+test_R_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", 42)
+test_R_variants(GNUMBER_GENERATIONS, "MULT_INV", 42)
+test_R_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", 42)
+
+os.chdir("..")
 
 os.chdir("julia")
 

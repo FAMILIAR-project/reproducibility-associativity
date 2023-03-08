@@ -16,6 +16,7 @@ Here are the current implementations:
  * configurable Swift implementation with `seed`, `--number`, and `--equality-check` 
  * configurable Ocaml implementation with `seed` (optional), `--number`, and `--equality-check` 
  * configurable Julia implementation with `seed` (optional), `--number`, `--equality-check`, and `stric-equality` 
+ * configurable R implementation with `seed` (optional), `number`, and `eq_check` 
 
  All implementations (but LISP until now) support parameterization of the number of random generations. 
  Executions are repeated 10 times by default (min, max, average, std reported).

@@ -9,8 +9,15 @@ mult_inverse_pi = []
 associativity = []
 
 [dependencies]
-rand = "0.8.4"
+rand = "0.8.4" 
 structopt = "0.2.15"
+# wasm-bindgen = "0.2"
+# wasm-bindgen-test = "0.2"
+# getrandom = { version = "0.2", features = ["js"] }
+
+# [lib]
+# path = "src_rst/testassoc.rs"
+# crate-type = ["cdylib"]
 
 [[bin]]
 name = "testassoc"

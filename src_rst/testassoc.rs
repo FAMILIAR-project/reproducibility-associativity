@@ -85,6 +85,6 @@ fn main() {
     };
 
     println!("{}%", proportion(&config, 10_000, 1234)); // TODO: variation point for number of tests and seed value
-
-   
+ 
 }
+

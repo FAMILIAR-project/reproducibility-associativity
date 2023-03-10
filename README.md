@@ -62,7 +62,19 @@ https://docs.julialang.org/en/v1/base/math/#Mathematical-Functions and the famou
 
 https://esolangs.org/wiki/Random_Brainfuck
 https://esolangs.org/wiki/Brainfuck_algorithms#x_.3D_pseudo-random_number
+https://twitter.com/acherm/status/1634238174879703040 
 
+### Scratch 
+
+Is `x+(y+z) == (x+y)+z` true in Scratch? 
+Well, it depends on the upper bound used when randomly generating a value for `y` (and `x` and `z`) considering the example in `scratch/testassoc.sb3`. 
+You can import in Scratch using https://scratch.mit.edu/projects/editor/. There are surprising results, considering variations over the `y` upperbound:
+ * with value `100000000000000000000000000000000000`, `ncorrect = ~730`; 
+ * with the value: `1e53`, `ncorrect = 1000` (100%), perfect! ; 
+ * with (large) values in-between (play with the slider!), almost perfect (999 or 997 out of 1000) but not perfect...
+ * with specific value `1000000000000000000000000`, `ncorrect=1000` (out of 1000), so 100% (perfect).
+
+note: for Scratch, it's hard to build a generator and systematize the exploration... It's at the moment mostly for exploring what's going on and hopefully find a comprehensive explanation. 
 
 ### C
 

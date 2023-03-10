@@ -58,6 +58,12 @@ https://docs.julialang.org/en/v1/base/math/#Mathematical-Functions and the famou
 
 `cpan install Getopt::Long enum` 
 
+### Brainfuck
+
+https://esolangs.org/wiki/Random_Brainfuck
+https://esolangs.org/wiki/Brainfuck_algorithms#x_.3D_pseudo-random_number
+
+
 ### C
 
 To cross-compile for Windows from Linux with `i686-w64-mingw32-gcc`, specific packages are needed (e.g. on Fedora `mingw64-gcc.x86_64`). 

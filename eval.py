@@ -428,9 +428,52 @@ def test_R_variants(ngen, rel_eq, seed=42):
     print_variant_results(variant_info, result_str)
 
 
+########### Go
+
+def test_GO_variants(ngen, rel_eq, seed=42):
+    variant_info = {
+        "Language": "Go",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "seed {}".format(seed),
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq, 
+        }
+    cmd_str = './testassoc -number {} -equality-check {}'.format(ngen, rel_eq)
+    if seed is not None:
+        cmd_str = cmd_str + ' -seed={}'.format(seed) 
+    
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
+
+def build_GO_variants():
+    cmd_args = ["go", "build", "-o", "testassoc", "testassoc.go"]
+    cmd_str = " ".join(cmd_args)
+    result = subprocess.run(cmd_str, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("Error while building Go variants")
+        print(result.stderr)
+        exit(1)
+
+
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("go")
+
+build_GO_variants()
+test_GO_variants(GNUMBER_GENERATIONS, "associativity", None)
+test_GO_variants(GNUMBER_GENERATIONS, "mult-inverse", None)
+test_GO_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", None)
+
+test_GO_variants(GNUMBER_GENERATIONS, "associativity", 42)
+test_GO_variants(GNUMBER_GENERATIONS, "mult-inverse", 42)
+test_GO_variants(GNUMBER_GENERATIONS, "mult-inverse-pi", 42)
+
+
+os.chdir("..")
 
 
 os.chdir("R")

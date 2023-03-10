@@ -456,10 +456,41 @@ def build_GO_variants():
         print(result.stderr)
         exit(1)
 
+########### Perl
+
+def test_Perl_variants(ngen, rel_eq, seed=42):
+    variant_info = {
+        "Language": "Perl",
+        "Library": "",
+        "System": "",
+        "Compiler": "",
+        "VariabilityMisc": "seed {}".format(seed),
+        "NumberGenerations": ngen,
+        "EqualityCheck": rel_eq, 
+        }
+    cmd_str = 'perl testassoc.pl --number {} --equality-check {}'.format(ngen, rel_eq)
+    if seed is not None:
+        cmd_str = cmd_str + ' --seed={}'.format(seed) 
+    
+    result_str = analyze_results(REPEAT, cmd_str)
+    print_variant_results(variant_info, result_str)
 
 #################### VARIANTS execution 
 
 print_column_names()
+
+os.chdir("perl")
+
+test_Perl_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", None)
+test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV", None)
+test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", None)
+
+test_Perl_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", 42)
+test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV", 42)
+test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", 42)
+
+
+os.chdir("..")
 
 os.chdir("go")
 

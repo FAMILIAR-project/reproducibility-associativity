@@ -489,7 +489,6 @@ test_Perl_variants(GNUMBER_GENERATIONS, "ASSOCIATIVITY", 42)
 test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV", 42)
 test_Perl_variants(GNUMBER_GENERATIONS, "MULT_INV_PI", 42)
 
-
 os.chdir("..")
 
 os.chdir("go")

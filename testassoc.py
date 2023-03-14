@@ -67,9 +67,9 @@ if __name__ == '__main__':
     if args.check_case:
         x, y, z = args.check_case
         if equality_test(args.equality_check, x, y, z):
-            print("Equality condition satisfied for ({}, {}, {})".format(x, y, z))
+            print("1")
         else:
-            print("Equality condition NOT satisfied for ({}, {}, {})".format(x, y, z))
+            print("0")
     elif args.failing_cases:
         fails = filter_cases(args.number, args.seed, args.equality_check, False)
         for f in fails:

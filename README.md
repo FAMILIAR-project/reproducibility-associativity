@@ -81,6 +81,7 @@ Result 2: 0.000000000000000
 Result 3: 33855452252848582656.000000000000000
 ```
 
+see also issue https://github.com/FAMILIAR-project/reproducibility-associativity/issues/3 (the case was provided by float-discriminant-gen2)
 
 
 ## Resources

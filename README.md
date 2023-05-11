@@ -95,6 +95,12 @@ https://lemire.me/blog/2019/03/12/multiplying-by-the-inverse-is-not-the-same-as-
 
 https://en.wikipedia.org/wiki/Linear_congruential_generator (pseudo-random generator)
 
+Automatically Improving Accuracy for Floating Point Expressions by Pavel Panchekha, Alex Sanchez-Stern, James R. Wilcox, Zachary Tatlock, PLDI'15 
+and Herbie: https://alex.uwplse.org/2015/08/03/measuring-error.html
+https://herbie.uwplse.org/demo/c2d77a1b790a25b764ab9e265e8d01244bdf3390.1.6/graph.html 
+
+http://tom7.org/grad/ GradIEEEnt half decent with some (serious) gems 
+
 ### Rust
 
 https://users.rust-lang.org/t/why-are-float-equality-comparsions-allowed/76603 about float equals stuffs

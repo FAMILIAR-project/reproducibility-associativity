@@ -43,8 +43,7 @@ Hence, we can envision four scenarios:
 
 ## Discriminants
 
-see `discriminant` folder 
-the goal is to play a bit with discriminant computation (`d = b*b - 4*a*c`)
+The goal is to play a bit with discriminant computation (`d = b*b - 4*a*c`) -- see `discriminant` folder for code souces and a quite informative session with GPT
 
 ```
 gcc float-discriminant.c -o float-discriminant

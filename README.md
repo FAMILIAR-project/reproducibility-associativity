@@ -51,7 +51,7 @@ gcc float-discriminant.c -o float-discriminant
 Discriminant: -393216.000000 // should be zero!
 ```
 
-not sure who's right (if any)
+Not sure who's right (if any)
 
 ```
 gcc float-discriminant-gen.c -o float-discriminant-gen -lm
@@ -64,7 +64,7 @@ Naive discriminant: 0.000000000000000
 Better discriminant: -2.607588242476570
 ```
 
-generalization with differential testing and Boldo's proposal: https://www.lri.fr/~sboldo/progs/discri.c.html 
+Generalization with differential testing and Boldo's proposal: https://www.lri.fr/~sboldo/progs/discri.c.html 
 
 ```
  gcc float-discriminant-gen2.c -o float-discriminant-gen2 -lm
@@ -80,6 +80,9 @@ Result 1: 0.000000000000000
 Result 2: 0.000000000000000
 Result 3: 33855452252848582656.000000000000000
 ```
+
+There is also an implementation with MPFR:
+`gcc -o float-mpfr float-mpfr.c -lmpfr` 
 
 see also issue https://github.com/FAMILIAR-project/reproducibility-associativity/issues/3 (the case was provided by float-discriminant-gen2)
 

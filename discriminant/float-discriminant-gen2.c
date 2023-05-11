@@ -10,6 +10,11 @@ double discriminant_naive(double a, double b, double c) {
     return d;
 }
 
+double discriminant_naive_rewrite(double a, double b, double c) {
+    double d = b * b + c * a * (-4);
+    return d;
+}
+
 double discriminant_better(double a, double b, double c) {
     double root_term = sqrt(b * b - 4 * a * c);
     double d = b > 0 ? (2 * c) / (-b - root_term) : (2 * c) / (-b + root_term);
@@ -95,7 +100,7 @@ int main() {
     // >>> 9143542153.361972808837891*9143542153.361972808837891 - 4*1454597162.760140895843506*14368989100.677461624145508
     // 0.0
 
-    DiscriminantFunction funcs[] = {discriminant_better, discriminant_naive, discriminant_dekker, discriminant_boldo /*, add more functions here... */};
+    DiscriminantFunction funcs[] = {discriminant_better, discriminant_naive, discriminant_dekker, discriminant_boldo, discriminant_naive_rewrite /*, add more functions here... */};
     int num_funcs = sizeof(funcs) / sizeof(DiscriminantFunction);
 
     for(int i = 0; i < 100; i++) {

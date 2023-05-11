@@ -71,11 +71,11 @@ if __name__ == '__main__':
         else:
             print("0")
     elif args.failing_cases:
-        fails = filter_cases(args.number, args.seed, args.equality_check, False)
+        fails = failing_cases(args.number, args.seed, args.equality_check)
         for f in fails:
             print(f)
     elif args.success_cases:
-        passes = filter_cases(args.number, args.seed, args.equality_check, True)
+        passes = success_cases(args.number, args.seed, args.equality_check)
         for p in passes:
             print(p)
     else:

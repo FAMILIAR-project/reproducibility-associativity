@@ -101,6 +101,11 @@ https://herbie.uwplse.org/demo/c2d77a1b790a25b764ab9e265e8d01244bdf3390.1.6/grap
 
 http://tom7.org/grad/ GradIEEEnt half decent with some (serious) gems 
 
+### Misc
+
+https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/
+reproducibility, floating points, multi layers problem, LLM, RL: all things we love (or hate)
+
 ### Rust
 
 https://users.rust-lang.org/t/why-are-float-equality-comparsions-allowed/76603 about float equals stuffs
